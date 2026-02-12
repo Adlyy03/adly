@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animasi Nama Keren</title>
+  <style>
+
+    @font-face {
+      font-family: 'Minecraft';
+      src: url('fonts/minecraft.ttf') format('truetype');
+    }
+
+    body {
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      background: linear-gradient(120deg, #12656e, #011b3f);
+      font-family: 'Minecraft', sans-serif;
+    }
+
+    .nama {
+      font-size: 8rem;
+      font-weight: bold;
+      position: absolute;
+      white-space: nowrap;
+      color: #fff;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nama">Muhammad Adli Fajriyansyah</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script>
+    const nama = document.querySelector('.nama');
+
+    function animateNama() {
+      const screenWidth = window.innerWidth;
+      const namaWidth = nama.offsetWidth;
+
+      // Anime loop tanpa "ngedrop" pas balik
+      anime({
+        targets: nama,
+        translateX: [ -namaWidth, screenWidth ],
+        duration: 20000,
+        easing: 'linear',
+        loop: true,
+        direction: 'normal',
+        // efek tambahan: scale naik turun selama bergerak
+        scale: [
+          { value: 1.2, duration: 2500, easing: 'easeInOutSine' },
+          { value: 1, duration: 2500, easing: 'easeInOutSine' }
+        ],
+        // warna berubah pelan
+        color: [
+          { value: '#ffdd59', duration: 2500, easing: 'linear' },
+          { value: '#fff', duration: 2500, easing: 'linear' }
+        ]
+      });
+    }
+
+    animateNama();
+
+    // agar animasi tetap pas resize layar
+    window.addEventListener('resize', () => {
+      anime.remove(nama); // hapus animasi lama
+      animateNama();      // restart animasi
+    });
+  </script>
+
+</body>
+</html>
