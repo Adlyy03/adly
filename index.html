@@ -3,75 +3,332 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Animasi Nama Keren</title>
-  <style>
-
-    @font-face {
-      font-family: 'Minecraft';
-      src: url('fonts/minecraft.ttf') format('truetype');
-    }
-
-    body {
-      overflow: hidden;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      background: linear-gradient(120deg, #12656e, #011b3f);
-      font-family: 'Minecraft', sans-serif;
-    }
-
-    .nama {
-      font-size: 8rem;
-      font-weight: bold;
-      position: absolute;
-      white-space: nowrap;
-      color: #fff;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-    }
-  </style>
+  <title>Muhammad Adli Fajriyansyah</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-brand">Adli</div>
+      <ul class="navbar-menu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
 
-  <div class="nama">Muhammad Adli Fajriyansyah</div>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
 
+    
+    <!-- Content -->
+    <div class="hero-content">
+      <div class="hero-title">Muhammad Adli Fajriyansyah</div>
+      <p class="hero-subtitle">Full Stack Developer | Creative Coder</p>
+    </div>
+
+        <!-- Spotlight effect -->
+    <div class="spotlight"></div>
+    
+    <!-- 3D Canvas -->
+    <div class="hero-3d-container">
+      <canvas id="canvas3d"></canvas>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="about-container">
+      <h2 class="about-title">About Me</h2>
+      
+      <div class="about-content">
+        <!-- Avatar -->
+        <div class="about-avatar">
+          <div class="avatar-circle">
+            <div class="avatar-placeholder">A</div>
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="about-bio">
+          <p class="bio-text">
+            Halo! Saya Muhammad Adli Fajriyansyah, seorang Full Stack Developer yang passionate tentang menciptakan pengalaman web yang interaktif dan inovatif. Saya suka explore teknologi baru dan mengaplikasikannya dalam project-project saya. Dari frontend hingga backend, saya siap menghadirkan solusi yang elegant dan performant.
+          </p>
+          
+          <!-- Skills Grid -->
+          <div class="skills-section">
+            <h3 class="skills-title">Tech Stack</h3>
+            <div class="skills-grid">
+              <div class="skill-card">
+                <span class="skill-name">HTML</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 95%;"></div>
+                </div>
+              </div>
+              <div class="skill-card">
+                <span class="skill-name">CSS</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 90%;"></div>
+                </div>
+              </div>
+              <div class="skill-card">
+                <span class="skill-name">JavaScript</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 85%;"></div>
+                </div>
+              </div>
+              <div class="skill-card">
+                <span class="skill-name">React</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 80%;"></div>
+                </div>
+              </div>
+              <div class="skill-card">
+                <span class="skill-name">PHP</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 80%;"></div>
+                </div>
+              </div>
+              <div class="skill-card">
+                <span class="skill-name">Laravel</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 85%;"></div>
+                </div>
+              </div>
+              <div class="skill-card">
+                <span class="skill-name">Anime.js</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 90%;"></div>
+                </div>
+              </div>
+              <div class="skill-card">
+                <span class="skill-name">Three.js</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 75%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills / Tools Section -->
+  <section class="skills-tools" id="projects">
+    <div class="skills-tools-container">
+      <h2 class="section-title">Skills & Tools</h2>
+      
+      <!-- Skill Bars -->
+      <div class="skill-bars-section">
+        <h3 class="subsection-title">Programming Languages & Frameworks</h3>
+        <div class="skill-bars">
+          <div class="skill-bar-item">
+            <span class="bar-label">HTML</span>
+            <div class="bar-container">
+              <div class="bar-fill" data-width="95"></div>
+            </div>
+            <span class="bar-percent">95%</span>
+          </div>
+          <div class="skill-bar-item">
+            <span class="bar-label">CSS</span>
+            <div class="bar-container">
+              <div class="bar-fill" data-width="90"></div>
+            </div>
+            <span class="bar-percent">90%</span>
+          </div>
+          <div class="skill-bar-item">
+            <span class="bar-label">JavaScript</span>
+            <div class="bar-container">
+              <div class="bar-fill" data-width="85"></div>
+            </div>
+            <span class="bar-percent">85%</span>
+          </div>
+          <div class="skill-bar-item">
+            <span class="bar-label">PHP</span>
+            <div class="bar-container">
+              <div class="bar-fill" data-width="80"></div>
+            </div>
+            <span class="bar-percent">80%</span>
+          </div>
+          <div class="skill-bar-item">
+            <span class="bar-label">React</span>
+            <div class="bar-container">
+              <div class="bar-fill" data-width="80"></div>
+            </div>
+            <span class="bar-percent">80%</span>
+          </div>
+          <div class="skill-bar-item">
+            <span class="bar-label">Laravel</span>
+            <div class="bar-container">
+              <div class="bar-fill" data-width="85"></div>
+            </div>
+            <span class="bar-percent">85%</span>
+          </div>
+          <div class="skill-bar-item">
+            <span class="bar-label">Anime.js</span>
+            <div class="bar-container">
+              <div class="bar-fill" data-width="90"></div>
+            </div>
+            <span class="bar-percent">90%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools Icons -->
+      <div class="tools-section">
+        <h3 class="subsection-title">Tools I Use</h3>
+        <div class="tools-grid">
+          <div class="tool-icon">
+            <div class="icon-circle">💻</div>
+            <span class="tool-name">VS Code</span>
+          </div>
+          <div class="tool-icon">
+            <div class="icon-circle">🎨</div>
+            <span class="tool-name">Figma</span>
+          </div>
+          <div class="tool-icon">
+            <div class="icon-circle">🐙</div>
+            <span class="tool-name">GitHub</span>
+          </div>
+          <div class="tool-icon">
+            <div class="icon-circle">📐</div>
+            <span class="tool-name">Photoshop</span>
+          </div>
+          <div class="tool-icon">
+            <div class="icon-circle">🖼️</div>
+            <span class="tool-name">Adobe XD</span>
+          </div>
+          <div class="tool-icon">
+            <div class="icon-circle">📦</div>
+            <span class="tool-name">npm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials" id="testimonials">
+    <div class="testimonials-container">
+      <h2 class="section-title">Achievements & Testimonials</h2>
+      
+      <div class="testimonials-carousel">
+        <div class="carousel-content">
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">✨</div>
+              <div class="testimonial-info">
+                <h4 class="testimonial-name">Project Excellence</h4>
+                <p class="testimonial-role">2024</p>
+              </div>
+            </div>
+            <p class="testimonial-text">Berhasil mengembangkan 5+ proyek web dengan teknologi terkini dan mendapat apresiasi dari klien.</p>
+            <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">🎯</div>
+              <div class="testimonial-info">
+                <h4 class="testimonial-name">Innovation Award</h4>
+                <p class="testimonial-role">2024</p>
+              </div>
+            </div>
+            <p class="testimonial-text">Penghargaan atas inovasi dalam menggunakan Anime.js dan Three.js untuk menciptakan UI yang immersive.</p>
+            <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">🚀</div>
+              <div class="testimonial-info">
+                <h4 class="testimonial-name">Full Stack Mastery</h4>
+                <p class="testimonial-role">2024</p>
+              </div>
+            </div>
+            <p class="testimonial-text">Sertifikat penyelesaian advanced full stack development dengan fokus pada frontend yang interaktif.</p>
+            <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+
+        <button class="carousel-btn prev">❮</button>
+        <button class="carousel-btn next">❯</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="contact-container">
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="contact-subtitle">Mari berkolaborasi dan ciptakan sesuatu yang amazing!</p>
+      
+      <form class="contact-form">
+        <div class="form-group">
+          <input 
+            type="text" 
+            class="form-input" 
+            placeholder="Your Name"
+            required
+          >
+          <span class="form-focus-border"></span>
+        </div>
+
+        <div class="form-group">
+          <input 
+            type="email" 
+            class="form-input" 
+            placeholder="Your Email"
+            required
+          >
+          <span class="form-focus-border"></span>
+        </div>
+
+        <div class="form-group">
+          <textarea 
+            class="form-input form-textarea" 
+            placeholder="Your Message"
+            rows="5"
+            required
+          ></textarea>
+          <span class="form-focus-border"></span>
+        </div>
+
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <p class="footer-text">&copy; 2026 Muhammad Adli Fajriyansyah. All rights reserved.</p>
+        
+        <div class="social-links">
+          <a href="https://github.com" class="social-icon" title="GitHub">🐙</a>
+          <a href="https://linkedin.com" class="social-icon" title="LinkedIn">💼</a>
+          <a href="https://twitter.com" class="social-icon" title="Twitter">🐦</a>
+          <a href="mailto:adli@example.com" class="social-icon" title="Email">📧</a>
+        </div>
+
+        <button class="back-to-top" id="backToTop">⬆ Back to Top</button>
+      </div>
+    </div>
+  </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script>
-    const nama = document.querySelector('.nama');
-
-    function animateNama() {
-      const screenWidth = window.innerWidth;
-      const namaWidth = nama.offsetWidth;
-
-      // Anime loop tanpa "ngedrop" pas balik
-      anime({
-        targets: nama,
-        translateX: [ -namaWidth, screenWidth ],
-        duration: 20000,
-        easing: 'linear',
-        loop: true,
-        direction: 'normal',
-        // efek tambahan: scale naik turun selama bergerak
-        scale: [
-          { value: 1.2, duration: 2500, easing: 'easeInOutSine' },
-          { value: 1, duration: 2500, easing: 'easeInOutSine' }
-        ],
-        // warna berubah pelan
-        color: [
-          { value: '#ffdd59', duration: 2500, easing: 'linear' },
-          { value: '#fff', duration: 2500, easing: 'linear' }
-        ]
-      });
-    }
-
-    animateNama();
-
-    // agar animasi tetap pas resize layar
-    window.addEventListener('resize', () => {
-      anime.remove(nama); // hapus animasi lama
-      animateNama();      // restart animasi
-    });
-  </script>
-
+  <!-- Load Three.js for 3D -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Load main.js -->
+  <script src="main.js"></script>
 </body>
 </html>
