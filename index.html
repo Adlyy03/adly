@@ -3,117 +3,454 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Muhammad Adli Fajriyansyah</title>
+  <meta name="description" content="Muhammad Adli Fajriyansyah — Full Stack Developer portfolio. Building elegant web experiences with React, Laravel, and modern web technologies.">
+  <title>Muhammad Adli Fajriyansyah — Full Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- Noise overlay -->
+  <div class="noise-overlay"></div>
+
   <!-- Navbar -->
-  <nav class="navbar">
+  <nav class="navbar" id="navbar">
     <div class="navbar-container">
-      <div class="navbar-brand">Adli</div>
-      <ul class="navbar-menu">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
+      <a href="#home" class="navbar-brand">
+        <span class="brand-bracket">&lt;</span>Adli<span class="brand-bracket">/&gt;</span>
+      </a>
+      <ul class="navbar-menu" id="navbarMenu">
+        <li><a href="#home" class="nav-link" data-section="home">Home</a></li>
+        <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+        <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
+        <li><a href="#skills" class="nav-link" data-section="skills">Skills</a></li>
+        <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
       </ul>
-      <div class="hamburger">
+      <a href="#contact" class="nav-cta">Hire Me</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span>
         <span></span>
         <span></span>
-      </div>
+      </button>
     </div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- ===== HERO SECTION ===== -->
   <section class="hero" id="home">
+    <canvas id="canvas3d"></canvas>
 
-    
-    <!-- Content -->
     <div class="hero-content">
-      <div class="hero-title">Muhammad Adli Fajriyansyah</div>
-      <p class="hero-subtitle">Full Stack Developer | Creative Coder</p>
+      <div class="hero-badge" id="heroBadge">
+        <span class="badge-dot"></span>
+        Available for opportunities
+      </div>
+
+      <h1 class="hero-name" id="heroName">
+        <span class="hero-name-line">Muhammad Adli</span>
+        <span class="hero-name-line accent">Fajriyansyah</span>
+      </h1>
+
+      <p class="hero-role" id="heroRole">
+        Full Stack Developer
+        <span class="role-separator">·</span>
+        <span class="role-typed" id="roleTyped"></span>
+      </p>
+
+      <p class="hero-desc" id="heroDesc">
+        Crafting exceptional digital experiences with clean code,<br>
+        modern technologies, and a meticulous eye for detail.
+      </p>
+
+      <div class="hero-actions" id="heroActions">
+        <a href="#projects" class="btn btn-primary">
+          <span>View My Work</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-secondary">
+          Get in Touch
+        </a>
+      </div>
+
+      <div class="hero-scroll" id="heroScroll">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+      </div>
     </div>
 
-        <!-- Spotlight effect -->
-    <div class="spotlight"></div>
-    
-    <!-- 3D Canvas -->
-    <div class="hero-3d-container">
-      <canvas id="canvas3d"></canvas>
+    <!-- Floating tech pills -->
+    <div class="hero-tech-pills">
+      <div class="tech-pill" style="--delay: 0s; --x: 70%; --y: 25%;">React</div>
+      <div class="tech-pill" style="--delay: 0.3s; --x: 75%; --y: 55%;">Laravel</div>
+      <div class="tech-pill" style="--delay: 0.6s; --x: 65%; --y: 78%;">Three.js</div>
+      <div class="tech-pill" style="--delay: 0.9s; --x: 80%; --y: 40%;">TypeScript</div>
     </div>
   </section>
 
-  <!-- About Section -->
+  <!-- ===== ABOUT SECTION ===== -->
   <section class="about" id="about">
-    <div class="about-container">
-      <h2 class="about-title">About Me</h2>
-      
-      <div class="about-content">
-        <!-- Avatar -->
-        <div class="about-avatar">
-          <div class="avatar-circle">
-            <div class="avatar-placeholder">A</div>
+    <div class="container">
+      <div class="about-grid">
+        <!-- Left: Image -->
+        <div class="about-image-wrap" data-animate="fade-left">
+          <div class="about-image-frame">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80"
+              alt="Muhammad Adli Fajriyansyah"
+              class="about-img"
+              loading="lazy"
+            >
+            <div class="image-border"></div>
+            <div class="image-dots"></div>
+          </div>
+          <!-- Experience badge -->
+          <div class="about-badge exp-badge">
+            <span class="badge-num">1+</span>
+            <span class="badge-text">Year<br>Experience</span>
+          </div>
+          <!-- Projects badge -->
+          <div class="about-badge proj-badge">
+            <span class="badge-num">5+</span>
+            <span class="badge-text">Projects<br>Completed</span>
           </div>
         </div>
 
-        <!-- Bio -->
-        <div class="about-bio">
-          <p class="bio-text">
-            Halo! Saya Muhammad Adli Fajriyansyah, seorang Full Stack Developer yang passionate tentang menciptakan pengalaman web yang interaktif dan inovatif. Saya suka explore teknologi baru dan mengaplikasikannya dalam project-project saya. Dari frontend hingga backend, saya siap menghadirkan solusi yang elegant dan performant.
+        <!-- Right: Content -->
+        <div class="about-content" data-animate="fade-right">
+          <p class="section-eyebrow">About Me</p>
+          <h2 class="section-title">Turning ideas into <span class="highlight">real solutions</span></h2>
+          <p class="about-text">
+            I'm Muhammad Adli Fajriyansyah, a passionate Full Stack Developer based in Indonesia. 
+            I specialize in building modern, performant web applications from the ground up — 
+            handling everything from pixel-perfect frontends to robust backend architectures.
           </p>
-          
-          <!-- Skills Grid -->
-          <div class="skills-section">
-            <h3 class="skills-title">Tech Stack</h3>
-            <div class="skills-grid">
-              <div class="skill-card">
-                <span class="skill-name">HTML</span>
-                <div class="skill-bar">
-                  <div class="skill-progress" style="width: 95%;"></div>
+          <p class="about-text">
+            My approach is simple: write clean, maintainable code and create interfaces 
+            that users love to interact with. I'm always exploring new technologies and 
+            pushing the boundaries of what's possible on the web.
+          </p>
+
+          <div class="about-info-list">
+            <div class="info-item">
+              <span class="info-label">Name</span>
+              <span class="info-value">Muhammad Adli Fajriyansyah</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Role</span>
+              <span class="info-value">Full Stack Developer</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Location</span>
+              <span class="info-value">Indonesia 🇮🇩</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Email</span>
+              <span class="info-value">adli@example.com</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Status</span>
+              <span class="info-value status-open">
+                <span class="status-dot"></span>
+                Open to opportunities
+              </span>
+            </div>
+          </div>
+
+          <div class="about-actions">
+            <a href="#" class="btn btn-primary" download>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M4 7l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Download CV
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS SECTION ===== -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <div class="section-header" data-animate="fade-up">
+        <p class="section-eyebrow">Portfolio</p>
+        <h2 class="section-title">Featured <span class="highlight">Projects</span></h2>
+        <p class="section-subtitle">A selection of my recent work and personal projects</p>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <article class="project-card featured" data-animate="fade-up" data-delay="0">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <div class="project-img-placeholder gradient-1">
+                <div class="project-mockup">
+                  <div class="mockup-bar"></div>
+                  <div class="mockup-content">
+                    <div class="mockup-line"></div>
+                    <div class="mockup-line short"></div>
+                    <div class="mockup-grid">
+                      <div class="mockup-card"></div>
+                      <div class="mockup-card"></div>
+                      <div class="mockup-card"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="skill-card">
-                <span class="skill-name">CSS</span>
-                <div class="skill-bar">
-                  <div class="skill-progress" style="width: 90%;"></div>
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="#" class="project-link" title="View Live">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="15 3 21 3 21 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </a>
+                  <a href="#" class="project-link" title="View Code">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </a>
                 </div>
               </div>
-              <div class="skill-card">
+            </div>
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-tag">Full Stack</span>
+                <span class="project-year">2024</span>
+              </div>
+              <h3 class="project-title">Arradea Marketplace</h3>
+              <p class="project-desc">
+                A full-featured e-commerce marketplace with role-based dashboards for buyers, sellers, and admins. 
+                Built with Laravel backend and React Native mobile app.
+              </p>
+              <div class="project-tech">
+                <span>Laravel</span>
+                <span>React Native</span>
+                <span>MySQL</span>
+                <span>Tailwind</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card" data-animate="fade-up" data-delay="100">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <div class="project-img-placeholder gradient-2">
+                <div class="project-mockup">
+                  <div class="mockup-bar"></div>
+                  <div class="mockup-content">
+                    <div class="mockup-line"></div>
+                    <div class="mockup-line short"></div>
+                    <div class="mockup-chart"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="#" class="project-link" title="View Live">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="15 3 21 3 21 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </a>
+                  <a href="#" class="project-link" title="View Code">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-tag">Frontend</span>
+                <span class="project-year">2024</span>
+              </div>
+              <h3 class="project-title">Interactive Portfolio</h3>
+              <p class="project-desc">
+                A creative developer portfolio featuring Three.js 3D galaxy, smooth Anime.js animations, 
+                and a fully responsive design.
+              </p>
+              <div class="project-tech">
+                <span>HTML/CSS</span>
+                <span>Three.js</span>
+                <span>Anime.js</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card" data-animate="fade-up" data-delay="200">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <div class="project-img-placeholder gradient-3">
+                <div class="project-mockup">
+                  <div class="mockup-bar"></div>
+                  <div class="mockup-content">
+                    <div class="mockup-line"></div>
+                    <div class="mockup-line"></div>
+                    <div class="mockup-line short"></div>
+                    <div class="mockup-btn"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="#" class="project-link" title="View Live">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="15 3 21 3 21 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </a>
+                  <a href="#" class="project-link" title="View Code">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-tag">Backend</span>
+                <span class="project-year">2023</span>
+              </div>
+              <h3 class="project-title">REST API Service</h3>
+              <p class="project-desc">
+                A robust RESTful API service built with Laravel Sanctum, featuring authentication, 
+                role management, and comprehensive API documentation.
+              </p>
+              <div class="project-tech">
+                <span>PHP</span>
+                <span>Laravel</span>
+                <span>Sanctum</span>
+                <span>MySQL</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="projects-more" data-animate="fade-up">
+        <a href="https://github.com" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          View All on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS SECTION ===== -->
+  <section class="skills" id="skills">
+    <div class="container">
+      <div class="section-header" data-animate="fade-up">
+        <p class="section-eyebrow">Expertise</p>
+        <h2 class="section-title">Skills & <span class="highlight">Technologies</span></h2>
+        <p class="section-subtitle">Tools and technologies I work with professionally</p>
+      </div>
+
+      <div class="skills-layout">
+        <!-- Skill Categories -->
+        <div class="skills-categories" data-animate="fade-up" data-delay="0">
+          <div class="skill-category">
+            <h3 class="skill-cat-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/><polyline points="9 9 9 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="15 9 15 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Frontend
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag">HTML5</span>
+              <span class="skill-tag">CSS3</span>
+              <span class="skill-tag">JavaScript (ES6+)</span>
+              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">React Native</span>
+              <span class="skill-tag">Three.js</span>
+              <span class="skill-tag">Anime.js</span>
+              <span class="skill-tag">GSAP</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3 class="skill-cat-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2"/><line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Backend
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag">PHP</span>
+              <span class="skill-tag">Laravel</span>
+              <span class="skill-tag">Laravel Sanctum</span>
+              <span class="skill-tag">REST API</span>
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">Node.js</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3 class="skill-cat-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Tools & DevOps
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">GitHub</span>
+              <span class="skill-tag">VS Code</span>
+              <span class="skill-tag">Figma</span>
+              <span class="skill-tag">npm</span>
+              <span class="skill-tag">Vite</span>
+              <span class="skill-tag">Postman</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skill Bars -->
+        <div class="skills-bars-wrap" data-animate="fade-left" data-delay="100">
+          <h3 class="skill-cat-title" style="margin-bottom: 2rem;">Proficiency</h3>
+          <div class="skill-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">HTML / CSS</span>
+                <span class="skill-pct">95%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="95"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
                 <span class="skill-name">JavaScript</span>
-                <div class="skill-bar">
-                  <div class="skill-progress" style="width: 85%;"></div>
-                </div>
+                <span class="skill-pct">85%</span>
               </div>
-              <div class="skill-card">
-                <span class="skill-name">React</span>
-                <div class="skill-bar">
-                  <div class="skill-progress" style="width: 80%;"></div>
-                </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="85"></div>
               </div>
-              <div class="skill-card">
-                <span class="skill-name">PHP</span>
-                <div class="skill-bar">
-                  <div class="skill-progress" style="width: 80%;"></div>
-                </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">React / React Native</span>
+                <span class="skill-pct">80%</span>
               </div>
-              <div class="skill-card">
-                <span class="skill-name">Laravel</span>
-                <div class="skill-bar">
-                  <div class="skill-progress" style="width: 85%;"></div>
-                </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="80"></div>
               </div>
-              <div class="skill-card">
-                <span class="skill-name">Anime.js</span>
-                <div class="skill-bar">
-                  <div class="skill-progress" style="width: 90%;"></div>
-                </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">PHP / Laravel</span>
+                <span class="skill-pct">85%</span>
               </div>
-              <div class="skill-card">
-                <span class="skill-name">Three.js</span>
-                <div class="skill-bar">
-                  <div class="skill-progress" style="width: 75%;"></div>
-                </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="85"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">Three.js / Anime.js</span>
+                <span class="skill-pct">88%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="88"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">MySQL / Database</span>
+                <span class="skill-pct">78%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="78"></div>
               </div>
             </div>
           </div>
@@ -122,213 +459,144 @@
     </div>
   </section>
 
-  <!-- Skills / Tools Section -->
-  <section class="skills-tools" id="projects">
-    <div class="skills-tools-container">
-      <h2 class="section-title">Skills & Tools</h2>
-      
-      <!-- Skill Bars -->
-      <div class="skill-bars-section">
-        <h3 class="subsection-title">Programming Languages & Frameworks</h3>
-        <div class="skill-bars">
-          <div class="skill-bar-item">
-            <span class="bar-label">HTML</span>
-            <div class="bar-container">
-              <div class="bar-fill" data-width="95"></div>
-            </div>
-            <span class="bar-percent">95%</span>
-          </div>
-          <div class="skill-bar-item">
-            <span class="bar-label">CSS</span>
-            <div class="bar-container">
-              <div class="bar-fill" data-width="90"></div>
-            </div>
-            <span class="bar-percent">90%</span>
-          </div>
-          <div class="skill-bar-item">
-            <span class="bar-label">JavaScript</span>
-            <div class="bar-container">
-              <div class="bar-fill" data-width="85"></div>
-            </div>
-            <span class="bar-percent">85%</span>
-          </div>
-          <div class="skill-bar-item">
-            <span class="bar-label">PHP</span>
-            <div class="bar-container">
-              <div class="bar-fill" data-width="80"></div>
-            </div>
-            <span class="bar-percent">80%</span>
-          </div>
-          <div class="skill-bar-item">
-            <span class="bar-label">React</span>
-            <div class="bar-container">
-              <div class="bar-fill" data-width="80"></div>
-            </div>
-            <span class="bar-percent">80%</span>
-          </div>
-          <div class="skill-bar-item">
-            <span class="bar-label">Laravel</span>
-            <div class="bar-container">
-              <div class="bar-fill" data-width="85"></div>
-            </div>
-            <span class="bar-percent">85%</span>
-          </div>
-          <div class="skill-bar-item">
-            <span class="bar-label">Anime.js</span>
-            <div class="bar-container">
-              <div class="bar-fill" data-width="90"></div>
-            </div>
-            <span class="bar-percent">90%</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tools Icons -->
-      <div class="tools-section">
-        <h3 class="subsection-title">Tools I Use</h3>
-        <div class="tools-grid">
-          <div class="tool-icon">
-            <div class="icon-circle">💻</div>
-            <span class="tool-name">VS Code</span>
-          </div>
-          <div class="tool-icon">
-            <div class="icon-circle">🎨</div>
-            <span class="tool-name">Figma</span>
-          </div>
-          <div class="tool-icon">
-            <div class="icon-circle">🐙</div>
-            <span class="tool-name">GitHub</span>
-          </div>
-          <div class="tool-icon">
-            <div class="icon-circle">📐</div>
-            <span class="tool-name">Photoshop</span>
-          </div>
-          <div class="tool-icon">
-            <div class="icon-circle">🖼️</div>
-            <span class="tool-name">Adobe XD</span>
-          </div>
-          <div class="tool-icon">
-            <div class="icon-circle">📦</div>
-            <span class="tool-name">npm</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section class="testimonials" id="testimonials">
-    <div class="testimonials-container">
-      <h2 class="section-title">Achievements & Testimonials</h2>
-      
-      <div class="testimonials-carousel">
-        <div class="carousel-content">
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">✨</div>
-              <div class="testimonial-info">
-                <h4 class="testimonial-name">Project Excellence</h4>
-                <p class="testimonial-role">2024</p>
-              </div>
-            </div>
-            <p class="testimonial-text">Berhasil mengembangkan 5+ proyek web dengan teknologi terkini dan mendapat apresiasi dari klien.</p>
-            <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">🎯</div>
-              <div class="testimonial-info">
-                <h4 class="testimonial-name">Innovation Award</h4>
-                <p class="testimonial-role">2024</p>
-              </div>
-            </div>
-            <p class="testimonial-text">Penghargaan atas inovasi dalam menggunakan Anime.js dan Three.js untuk menciptakan UI yang immersive.</p>
-            <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">🚀</div>
-              <div class="testimonial-info">
-                <h4 class="testimonial-name">Full Stack Mastery</h4>
-                <p class="testimonial-role">2024</p>
-              </div>
-            </div>
-            <p class="testimonial-text">Sertifikat penyelesaian advanced full stack development dengan fokus pada frontend yang interaktif.</p>
-            <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-          </div>
-        </div>
-
-        <button class="carousel-btn prev">❮</button>
-        <button class="carousel-btn next">❯</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
+  <!-- ===== CONTACT SECTION ===== -->
   <section class="contact" id="contact">
-    <div class="contact-container">
-      <h2 class="section-title">Get In Touch</h2>
-      <p class="contact-subtitle">Mari berkolaborasi dan ciptakan sesuatu yang amazing!</p>
-      
-      <form class="contact-form">
-        <div class="form-group">
-          <input 
-            type="text" 
-            class="form-input" 
-            placeholder="Your Name"
-            required
-          >
-          <span class="form-focus-border"></span>
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Left Info -->
+        <div class="contact-info" data-animate="fade-right">
+          <p class="section-eyebrow">Contact</p>
+          <h2 class="section-title">Let's Work <span class="highlight">Together</span></h2>
+          <p class="contact-text">
+            Have a project in mind or want to discuss opportunities? 
+            I'm always open to new collaborations and interesting challenges. 
+            Let's build something great together.
+          </p>
+
+          <div class="contact-details">
+            <a href="mailto:adli@example.com" class="contact-detail-item">
+              <div class="detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span>adli@example.com</span>
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="contact-detail-item">
+              <div class="detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span>github.com/adly</span>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="contact-detail-item">
+              <div class="detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" stroke="currentColor" stroke-width="2"/><rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2"/><circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <span>linkedin.com/in/adly</span>
+            </a>
+          </div>
         </div>
 
-        <div class="form-group">
-          <input 
-            type="email" 
-            class="form-input" 
-            placeholder="Your Email"
-            required
-          >
-          <span class="form-focus-border"></span>
+        <!-- Right Form -->
+        <div class="contact-form-wrap" data-animate="fade-left">
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="inputName">Full Name</label>
+                <input
+                  type="text"
+                  id="inputName"
+                  class="form-input"
+                  placeholder="John Doe"
+                  required
+                >
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="inputEmail">Email Address</label>
+                <input
+                  type="email"
+                  id="inputEmail"
+                  class="form-input"
+                  placeholder="john@example.com"
+                  required
+                >
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inputSubject">Subject</label>
+              <input
+                type="text"
+                id="inputSubject"
+                class="form-input"
+                placeholder="Project Inquiry"
+              >
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inputMessage">Message</label>
+              <textarea
+                id="inputMessage"
+                class="form-input form-textarea"
+                placeholder="Tell me about your project..."
+                rows="5"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+              <span class="btn-text">Send Message</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polygon points="22 2 15 22 11 13 2 9 22 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="form-success" id="formSuccess">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Message sent! I'll get back to you soon.
+            </div>
+          </form>
         </div>
-
-        <div class="form-group">
-          <textarea 
-            class="form-input form-textarea" 
-            placeholder="Your Message"
-            rows="5"
-            required
-          ></textarea>
-          <span class="form-focus-border"></span>
-        </div>
-
-        <button type="submit" class="submit-btn">Send Message</button>
-      </form>
+      </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- ===== FOOTER ===== -->
   <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-content">
-        <p class="footer-text">&copy; 2026 Muhammad Adli Fajriyansyah. All rights reserved.</p>
-        
-        <div class="social-links">
-          <a href="https://github.com" class="social-icon" title="GitHub">🐙</a>
-          <a href="https://linkedin.com" class="social-icon" title="LinkedIn">💼</a>
-          <a href="https://twitter.com" class="social-icon" title="Twitter">🐦</a>
-          <a href="mailto:adli@example.com" class="social-icon" title="Email">📧</a>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#home" class="navbar-brand" style="font-size: 1.4rem;">
+            <span class="brand-bracket">&lt;</span>Adli<span class="brand-bracket">/&gt;</span>
+          </a>
+          <p class="footer-tagline">Building the web, one component at a time.</p>
         </div>
 
-        <button class="back-to-top" id="backToTop">⬆ Back to Top</button>
+        <div class="footer-links-group">
+          <h4 class="footer-links-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-group">
+          <h4 class="footer-links-title">Social</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="mailto:adli@example.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Muhammad Adli Fajriyansyah. All rights reserved.</p>
+        <button class="back-to-top" id="backToTop" aria-label="Back to top">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 15l-6-6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
     </div>
   </footer>
+
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <!-- Load Three.js for 3D -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <!-- Load main.js -->
   <script src="main.js"></script>
 </body>
 </html>
