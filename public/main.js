@@ -1298,16 +1298,27 @@ function buildCertCardHTML(cert, index) {
         </svg>
       </div>`;
 
-  const credentialBtn = cert.credentialUrl
-    ? `<a href="${cert.credentialUrl}" class="cert-credential-btn" target="_blank" rel="noopener" title="Lihat Kredensial">
+  // Tombol "Lihat Sertifikat":
+  // - kalau ada foto → buka lightbox
+  // - kalau tidak ada foto tapi ada URL → buka URL
+  const viewBtn = hasImage
+    ? `<button type="button" class="cert-credential-btn cert-view-btn" data-src="${cert.imageData}" aria-label="Lihat sertifikat">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <polyline points="15 3 21 3 21 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
         </svg>
-        Lihat Kredensial
-      </a>`
-    : '';
+        Lihat Sertifikat
+      </button>`
+    : cert.credentialUrl
+      ? `<a href="${cert.credentialUrl}" class="cert-credential-btn" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <polyline points="15 3 21 3 21 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Lihat Kredensial
+        </a>`
+      : '';
 
   return `
     <article class="cert-card" data-animate="fade-up" data-delay="${delay}" data-cert-id="${cert.id}">
@@ -1321,13 +1332,6 @@ function buildCertCardHTML(cert, index) {
       </div>
       <div class="cert-card-image" ${hasImage ? 'data-has-image="true"' : ''}>
         ${imageContent}
-        ${hasImage ? `<button class="cert-zoom-btn" data-src="${cert.imageData}" aria-label="Perbesar gambar">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
-            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M11 8v6M8 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>` : ''}
       </div>
       <div class="cert-card-body">
         <div class="cert-card-meta">
@@ -1342,7 +1346,7 @@ function buildCertCardHTML(cert, index) {
           </svg>
           ${cert.issuer}
         </p>
-        ${credentialBtn}
+        ${viewBtn}
       </div>
     </article>`;
 }
@@ -1382,8 +1386,8 @@ function renderCertificates() {
     });
   });
 
-  // Lightbox zoom
-  grid.querySelectorAll('.cert-zoom-btn').forEach(btn => {
+  // Lightbox — tombol "Lihat Sertifikat"
+  grid.querySelectorAll('.cert-view-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       openCertLightbox(btn.dataset.src);
