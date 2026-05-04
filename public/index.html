@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+fi
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Muhammad Adli Fajriyansyah — Portfolio Full Stack Developer. Membangun pengalaman web yang elegan dengan React, Laravel, dan teknologi web modern.">
+  <title>Muhammad Adli Fajriyansyah — Full Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- Noise overlay -->
+  <div class="noise-overlay"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-container">
+      <a href="#home" class="navbar-brand">
+        <span class="brand-bracket">&lt;</span>Adli<span class="brand-bracket">/&gt;</span>
+      </a>
+      <ul class="navbar-menu" id="navbarMenu">
+        <li><a href="#home" class="nav-link" data-section="home">Beranda</a></li>
+        <li><a href="#about" class="nav-link" data-section="about">Tentang</a></li>
+        <li><a href="#projects" class="nav-link" data-section="projects">Proyek</a></li>
+        <li><a href="#skills" class="nav-link" data-section="skills">Keahlian</a></li>
+        <li><a href="#contact" class="nav-link" data-section="contact">Kontak</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Rekrut Saya</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="home">
+    <canvas id="canvas3d"></canvas>
+
+    <!-- FULL SCREEN TICKER BACKGROUND -->
+    <div class="hero-name-ticker">
+      <div class="hero-name-track">
+        <h1 class="hero-name">Muhamad Adli Fajriyansyah</h1>
+        <h1 class="hero-name">Muhamad Adli Fajriyansyah</h1>
+        <h1 class="hero-name">Muhamad Adli Fajriyansyah</h1>
+      </div>
+    </div>
+
+    <div class="hero-content">
+      
+
+      <p class="hero-role" id="heroRole">
+        Full Stack Developer
+        <span class="role-separator">·</span>
+        <span class="role-typed" id="roleTyped"></span>
+      </p>
+
+      <p class="hero-desc" id="heroDesc">
+        Menciptakan pengalaman digital luar biasa dengan kode bersih,<br>
+        teknologi modern, dan perhatian terhadap detail.
+      </p>
+
+      <div class="hero-actions" id="heroActions">
+        <a href="#projects" class="btn btn-primary">
+          <span>Lihat Karya Saya</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="#contact" class="btn btn-secondary">
+          Hubungi Saya
+        </a>
+      </div>
+
+      <div class="hero-scroll" id="heroScroll">
+        <div class="scroll-line"></div>
+        <span>Gulir</span>
+      </div>
+    </div>
+
+    <!-- Hero Ticker -->
+    <div class="hero-ticker">
+      <div class="hero-ticker-track">
+        <span>Web Developer</span>
+        <span>Creative Designer</span>
+        <span>Problem Solver</span>
+        <span>UI/UX Enthusiast< /span>
+        <span>Web Developer</span>
+        <span>Creative Designer</span>
+        <span>Problem Solver</span>
+        <span>UI/UX Enthusiast</span>
+      </div>
+    </div>
+
+    <!-- Floating tech pills -->
+    <div class="hero-tech-pills">
+      <div class="tech-pill" style="--delay: 0s; --x: 70%; --y: 25%;">React</div>
+      <div class="tech-pill" style="--delay: 0.3s; --x: 75%; --y: 55%;">Laravel</div>
+      <div class="tech-pill" style="--delay: 0.6s; --x: 65%; --y: 78%;">Three.js</div>
+      <div class="tech-pill" style="--delay: 0.9s; --x: 80%; --y: 40%;">TypeScript</div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT SECTION ===== -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <!-- Left: Image -->
+        <div class="about-image-wrap" data-animate="fade-left">
+          <div class="about-orbit-layer orbit-one" aria-hidden="true"></div>
+          <div class="about-orbit-layer orbit-two" aria-hidden="true"></div>
+          <div class="about-image-frame">
+            <img src="img/ad.jpeg"
+              alt="Muhammad Adli Fajriyansyah" class="about-img" loading="lazy">
+            <div class="image-border"></div>
+            <div class="image-dots"></div>
+          </div>
+          <!-- Experience badge -->
+          <div class="about-badge exp-badge">
+            <span class="badge-num">1+</span>
+            <span class="badge-text">Tahun<br>Pengalaman</span>
+          </div>
+          <!-- Projects badge -->
+          <div class="about-badge proj-badge">
+            <span class="badge-num">5+</span>
+            <span class="badge-text">Proyek<br>Selesai</span>
+          </div>
+        </div>
+
+        <!-- Right: Content -->
+        <div class="about-content" data-animate="fade-right">
+          <p class="section-eyebrow">Tentang Saya</p>
+          <h2 class="section-title">Mengubah ide menjadi <span class="highlight">solusi nyata</span></h2>
+          <p class="about-text">
+            Saya Muhamad Adli Fajriyansyah, seorang Full Stack Developer yang bersemangat dari Indonesia.
+            Saya mengkhususkan diri dalam membangun aplikasi web modern dan berkinerja tinggi dari awal —
+            menangani segalanya dari frontend yang sempurna hingga arsitektur backend yang robust.
+          </p>
+          <p class="about-text">
+            Pendekatan saya sederhana: menulis kode yang bersih dan mudah dipelihara serta membuat antarmuka
+            yang pengguna sukai untuk berinteraksi. Saya selalu mengeksplorasi teknologi baru dan
+            mendorong batasan apa yang mungkin di web.
+          </p>
+
+          <div class="about-info-list">
+            <div class="info-item">
+              <span class="info-label">Nama</span>
+              <span class="info-value">Muhamad Adli Fajriyansyah</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Peran</span>
+              <span class="info-value">Full Stack Developer</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Lokasi</span>
+              <span class="info-value">Indonesia 🇮🇩</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Email</span>
+              <span class="info-value">adli@example.com</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Status</span>
+              <span class="info-value status-open">
+                <span class="status-dot"></span>
+                Terbuka untuk Peluang
+              </span>
+            </div>
+          </div>
+
+          <div class="about-actions">
+            <a href="#" class="btn btn-primary" download>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 2v8M4 7l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              Unduh CV
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION SUB NAV ===== -->
+  <div class="section-subnav-wrap" id="sectionSubnavWrap">
+    <div class="container">
+      <nav class="section-subnav" id="sectionSubnav" aria-label="Navigasi Seksi">
+        <a href="#projects" class="subnav-link" data-section="projects">Proyek</a>
+        <a href="#skills" class="subnav-link" data-section="skills">Keahlian</a>
+        <a href="#contact" class="subnav-link" data-section="contact">Hubungi</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===== PROJECTS SECTION ===== -->
+  <section class="projects tab-panel is-active" id="projects" data-tab-panel>
+    <div class="container">
+      <div class="section-header" data-animate="fade-up">
+        <p class="section-eyebrow">Portofolio</p>
+        <h2 class="section-title">Proyek <span class="highlight">Unggulan</span></h2>
+        <p class="section-subtitle">Pilihan dari pekerjaan terbaru dan proyek pribadi saya</p>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <article class="project-card featured" data-animate="fade-up" data-delay="0">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <div class="project-img-placeholder gradient-1">
+                <div class="project-mockup">
+                  <div class="mockup-bar"></div>
+                  <div class="mockup-content">
+                    <div class="mockup-line"></div>
+                    <div class="mockup-line short"></div>
+                    <div class="mockup-grid">
+                      <div class="mockup-card"></div>
+                      <div class="mockup-card"></div>
+                      <div class="mockup-card"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="project-overlay">
+                <div class="project-links">
+                  
+                  <a href="https://github.com/Adlyy03/arradea-laravel" class="project-link" title="View Code">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-tag">FrontEnd</span>
+                <span class="project-tag">BackEnd</span>
+                <span class="project-year">2024</span>
+              </div>
+              <h3 class="project-title">Arradea Marketplace</h3>
+              <p class="project-desc">
+                Marketplace e-commerce lengkap dengan dashboard berbasis peran untuk pembeli, penjual, dan admin.
+                Dibangun dengan backend Laravel dan aplikasi mobile React Native.
+              </p>
+              <div class="project-tech">
+                <span>Laravel</span>
+                <span>MySQL</span>
+                <span>Tailwind</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card" data-animate="fade-up" data-delay="100">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <div class="project-img-placeholder gradient-2">
+                <div class="project-mockup">
+                  <div class="mockup-bar"></div>
+                  <div class="mockup-content">
+                    <div class="mockup-line"></div>
+                    <div class="mockup-line short"></div>
+                    <div class="mockup-chart"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="project-overlay">
+                <div class="project-links">
+                  
+                  <a href="https://github.com/Adlyy03/ResepRahasia" class="project-link" title="View Code">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-tag">Fullstack</span>
+                <span class="project-year">2024</span>
+              </div>
+              <h3 class="project-title">ResepRahasia</h3>
+              <p class="project-desc">
+                Aplikasi resep masakan dengan berbagai resep lezat dan mudah dibuat.
+              </p>
+              <div class="project-tech">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JS</span> 
+                <span>PHP</span>  
+              </div>  
+            </div>  
+          </div>  
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card" data-animate="fade-up" data-delay="200">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <div class="project-img-placeholder gradient-3">
+                <div class="project-mockup">
+                  <div class="mockup-bar"></div>
+                  <div class="mockup-content">
+                    <div class="mockup-line"></div>
+                    <div class="mockup-line"></div>
+                    <div class="mockup-line short"></div>
+                    <div class="mockup-btn"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="project-overlay">
+                <div class="project-links">
+                  
+                  <a href="#" class="project-link" title="View Code">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-tag">Backend</span>
+                <span class="project-year">2023</span>
+              </div>
+              <h3 class="project-title">Layanan REST API</h3>
+              <p class="project-desc">
+                Layanan API RESTful yang robust dibangun dengan Laravel Sanctum, menampilkan otentikasi,
+                manajemen peran, dan dokumentasi API yang komprehensif.
+              </p>
+              <div class="project-tech">
+                <span>PHP</span>
+                <span>Laravel</span>
+                <span>Sanctum</span>
+                <span>MySQL</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="projects-more" data-animate="fade-up">
+        <a href="https://github.com/Adlyy03" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Lihat Semua di GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS SECTION ===== -->
+  <section class="skills tab-panel" id="skills" data-tab-panel hidden>
+    <div class="container">
+      <div class="section-header" data-animate="fade-up">
+        <p class="section-eyebrow">Keahlian</p>
+        <h2 class="section-title">Keahlian & <span class="highlight">Teknologi</span></h2>
+        <p class="section-subtitle">Alat dan teknologi yang saya gunakan secara profesional</p>
+      </div>
+
+      <div class="skills-layout">
+        <!-- Skill Categories -->
+        <div class="skills-categories" data-animate="fade-up" data-delay="0">
+          <div class="skill-category">
+            <h3 class="skill-cat-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2" />
+                <polyline points="9 9 9 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <polyline points="15 9 15 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              Frontend
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag">HTML5</span>
+              <span class="skill-tag">CSS3</span>
+              <span class="skill-tag">JavaScript (ES6+)</span>
+              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">React Native</span>
+              <span class="skill-tag">Three.js</span>
+              <span class="skill-tag">Anime.js</span>
+              <span class="skill-tag">GSAP</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3 class="skill-cat-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2" />
+                <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              Backend
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag">PHP</span>
+              <span class="skill-tag">Laravel</span>
+              <span class="skill-tag">Laravel Sanctum</span>
+              <span class="skill-tag">REST API</span>
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">Node.js</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3 class="skill-cat-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+                <path
+                  d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              Alat & DevOps
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">GitHub</span>
+              <span class="skill-tag">VS Code</span>
+              <span class="skill-tag">Figma</span>
+              <span class="skill-tag">npm</span>
+              <span class="skill-tag">Vite</span>
+              <span class="skill-tag">Postman</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skill Bars -->
+        <div class="skills-bars-wrap" data-animate="fade-left" data-delay="100">
+          <h3 class="skill-cat-title" style="margin-bottom: 2rem;">Keahlian</h3>
+          <div class="skill-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">HTML / CSS</span>
+                <span class="skill-pct">95%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="95"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-pct">85%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="85"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">React / React Native</span>
+                <span class="skill-pct">80%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="80"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">PHP / Laravel</span>
+                <span class="skill-pct">85%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="85"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">Three.js / Anime.js</span>
+                <span class="skill-pct">88%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="88"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header">
+                <span class="skill-name">MySQL / Database</span>
+                <span class="skill-pct">78%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="78"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section class="contact tab-panel" id="contact" data-tab-panel hidden>
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Left Info -->
+        <div class="contact-info" data-animate="fade-right">
+          <p class="section-eyebrow">Hubungi</p>
+          <h2 class="section-title">Mari Bekerja <span class="highlight">Bersama</span></h2>
+          <p class="contact-text">
+            Ada proyek dalam pikiran atau ingin membahas peluang?
+            Saya selalu terbuka untuk kolaborasi baru dan tantangan menarik.
+            Mari kita bangun sesuatu yang hebat bersama.
+          </p>
+
+          <div class="contact-details">
+            <a href="mailto:adli@example.com" class="contact-detail-item">
+              <div class="detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                    stroke="currentColor" stroke-width="2" />
+                  <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </div>
+              <span>adli@example.com</span>
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="contact-detail-item">
+              <div class="detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <span>github.com/adly</span>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="contact-detail-item">
+              <div class="detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"
+                    stroke="currentColor" stroke-width="2" />
+                  <rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2" />
+                  <circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2" />
+                </svg>
+              </div>
+              <span>linkedin.com/in/adly</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Form -->
+        <div class="contact-form-wrap" data-animate="fade-left">
+          <form class="contact-form" id="contactForm" novalidate>
+            <!-- Form Alert -->
+            <div class="form-alert" id="formAlert">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                <line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="12" cy="16" r="1" fill="currentColor"/>
+              </svg>
+              <span id="alertMessage"></span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="inputName">Nama Lengkap <span aria-label="required">*</span></label>
+                <input 
+                  type="text" 
+                  id="inputName" 
+                  class="form-input" 
+                  placeholder="John Doe" 
+                  required
+                  aria-required="true"
+                  aria-describedby="nameerror">
+                <div class="form-error" id="nameerror">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  <span id="nameErrorMsg">Nama tidak boleh kosong</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="inputEmail">Alamat Email <span aria-label="required">*</span></label>
+                <input 
+                  type="email" 
+                  id="inputEmail" 
+                  class="form-input" 
+                  placeholder="john@example.com" 
+                  required
+                  aria-required="true"
+                  aria-describedby="emailerror">
+                <div class="form-error" id="emailerror">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  <span id="emailErrorMsg">Email tidak valid</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="inputSubject">Subjek</label>
+              <input 
+                type="text" 
+                id="inputSubject" 
+                class="form-input" 
+                placeholder="Pertanyaan Proyek"
+                aria-describedby="subjecthelp">
+              <div class="form-helper" id="subjecthelp">Jelaskan topik pertanyaan Anda</div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="inputMessage">Pesan <span aria-label="required">*</span></label>
+              <textarea 
+                id="inputMessage" 
+                class="form-input form-textarea" 
+                placeholder="Ceritakan tentang proyek Anda..."
+                rows="5" 
+                required
+                aria-required="true"
+                aria-describedby="messageerror messagehelp"></textarea>
+              <div class="form-error" id="messageerror">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span id="messageErrorMsg">Pesan tidak boleh kosong</span>
+              </div>
+              <div class="form-helper" id="messagehelp">Minimal 10 karakter untuk pesan yang bermakna</div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-full" id="submitBtn" aria-label="Kirim formulir">
+              <span class="btn-text">Kirim Pesan</span>
+              <span class="btn-loading-text" style="display: none;">Mengirim...</span>
+              <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <polygon points="22 2 15 22 11 13 2 9 22 2" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            
+            <div class="form-success" id="formSuccess">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              Pesan terkirim! Saya akan menghubungi Anda segera.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-simple">
+        <a href="#home" class="navbar-brand footer-brand-link">
+          <span class="brand-bracket">&lt;</span>Adli<span class="brand-bracket">/&gt;</span>
+        </a>
+        <div class="footer-simple-links">
+          <a href="#about">Tentang</a>
+          <a href="#projects">Proyek</a>
+          <a href="https://github.com/Adlyy03" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:adlimuhamad358@gmail.com">Email</a>
+        </div>
+      </div>
+
+      <div class="footer-ticker" aria-label="Tech Stack Ticker">
+        <div class="footer-ticker-track">
+          <span>React</span>
+          <span>Laravel</span>
+          <span>Three.js</span>
+          <span>TypeScript</span>
+          <span>React</span>
+          <span>Laravel</span>
+          <span>Three.js</span>
+          <span>TypeScript</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Muhammad Adli Fajriyansyah. Semua hak dilindungi.</p>
+        <button class="back-to-top" id="backToTop" aria-label="Back to top">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M18 15l-6-6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
