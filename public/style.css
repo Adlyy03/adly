@@ -34,8 +34,9 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
-  --font-main: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-main: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'Fira Code', 'JetBrains Mono', monospace;
 
   --navbar-h: 72px;
   --subnav-h: 58px;
@@ -60,6 +61,11 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   cursor: none;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11'; /* Plus Jakarta Sans alternates */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
 }
 
 img { display: block; max-width: 100%; }
@@ -143,6 +149,7 @@ body:has(button:hover) .cursor-follower {
   letter-spacing: -0.03em;
   color: var(--text-primary);
   margin-bottom: 1.2rem;
+  font-family: var(--font-display);
 }
 
 .section-subtitle {
@@ -270,7 +277,7 @@ body:has(button:hover) .cursor-follower {
 }
 
 .navbar-brand {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 1.3rem;
   font-weight: 700;
   color: var(--text-primary);
@@ -507,6 +514,7 @@ body:has(button:hover) .cursor-follower {
 }
 
 .hero-name {
+  font-family: var(--font-display);
   font-size: 22vh;
   font-weight: 950;
   letter-spacing: -0.04em;
@@ -514,9 +522,8 @@ body:has(button:hover) .cursor-follower {
   margin: 0;
   white-space: nowrap;
   text-transform: uppercase;
-  /* Warna Desain Mahal: Terang, Berkilau, dan Tegas */
   color: transparent;
-  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.6); /* Stroke lebih putih dan solid */
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.6);
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.8) 0%,
@@ -524,8 +531,8 @@ body:has(button:hover) .cursor-follower {
   );
   -webkit-background-clip: text;
   background-clip: text;
-  opacity: 0.45; /* Jauh lebih terang dari sebelumnya */
-  filter: drop-shadow(0 0 40px rgba(99, 102, 241, 0.3)); /* Glow lebih terasa */
+  opacity: 0.45;
+  filter: drop-shadow(0 0 40px rgba(99, 102, 241, 0.3));
   transition: all 0.5s ease;
 }
 
@@ -1283,6 +1290,7 @@ section {
 }
 
 .project-title {
+  font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
@@ -2689,6 +2697,7 @@ section {
 }
 
 .cert-title {
+  font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 700;
   color: var(--text-primary);
