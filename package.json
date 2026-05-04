@@ -1,7 +1,6 @@
 {
   "name": "porto-adli",
   "version": "1.0.0",
-  "type": "module",
   "description": "Portfolio website — Vercel deployment",
   "scripts": {
     "dev": "vercel dev",

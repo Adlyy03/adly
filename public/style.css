@@ -2431,25 +2431,35 @@ section {
 }
 
 /* ===================================
-   FOOTER HIDDEN ADMIN TRIGGER
+   FOOTER ADMIN BUTTONS
 =================================== */
-.footer-admin-trigger {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  opacity: 0.2;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  transition: opacity 0.3s ease, color 0.3s ease;
-  user-select: none;
+.footer-admin-triggers {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.footer-admin-trigger:hover {
-  opacity: 0.6;
+.footer-admin-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid var(--border-accent);
   color: var(--accent-light);
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.footer-admin-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
 }
 
 /* ===================================
@@ -2777,13 +2787,6 @@ section {
 .cert-lightbox-close:hover {
   background: rgba(239, 68, 68, 0.7);
   border-color: #ef4444;
-}
-
-/* ===== FOOTER ADMIN TRIGGERS ===== */
-.footer-admin-triggers {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
 }
 
 /* ===================================
