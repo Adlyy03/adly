@@ -35,7 +35,7 @@ module.exports = async function handler(req, res) {
       }
 
       const blob = await put(filename, req, {
-        access: 'private',
+        access: 'public',
         contentType: req.headers['content-type'],
       });
 
