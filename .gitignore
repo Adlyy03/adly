@@ -67,3 +67,12 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Uploaded images (disimpan lokal, tidak perlu di-commit)
+public/img/*.webp
+public/img/*.jpg
+public/img/*.jpeg
+public/img/*.png
+public/img/*.gif
+# Kecuali gambar default yang sudah ada
+!public/img/ad.jpeg

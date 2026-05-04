@@ -415,7 +415,7 @@ function initNavbar() {
   const links = document.querySelectorAll('.nav-link');
   const subnavLinks = document.querySelectorAll('.subnav-link');
   const tabPanels = document.querySelectorAll('[data-tab-panel]');
-  const tabIds = ['projects', 'skills', 'contact'];
+  const tabIds = ['projects', 'skills', 'certificates', 'contact'];
   let activeTabId = 'projects';
 
   function setActiveTab(tabId, opts = {}) {
@@ -821,6 +821,903 @@ function initSkillTags() {
 }
 
 // ===================================
+//  PROJECTS CRUD
+// ===================================
+
+// Default projects data (seed jika localStorage kosong)
+const DEFAULT_PROJECTS = [
+  {
+    id: 'proj-1',
+    title: 'Arradea Marketplace',
+    desc: 'Marketplace e-commerce lengkap dengan dashboard berbasis peran untuk pembeli, penjual, dan admin. Dibangun dengan backend Laravel dan aplikasi mobile React Native.',
+    tag: 'Fullstack',
+    year: '2026',
+    tech: ['Laravel', 'MySQL', 'Tailwind'],
+    liveUrl: 'https://arradea.my.id/',
+    githubUrl: 'https://github.com/Adlyy03/arradea-laravel',
+    gradient: 'gradient-1',
+    featured: true,
+  },
+  {
+    id: 'proj-2',
+    title: 'ResepRahasia',
+    desc: 'Aplikasi resep masakan dengan berbagai resep lezat dan mudah dibuat.',
+    tag: 'Fullstack',
+    year: '2024',
+    tech: ['HTML', 'CSS', 'JS', 'PHP'],
+    liveUrl: '#',
+    githubUrl: 'https://github.com/Adlyy03/ResepRahasia',
+    gradient: 'gradient-2',
+    featured: false,
+  },
+  {
+    id: 'proj-3',
+    title: 'Layanan REST API',
+    desc: 'Layanan API RESTful yang robust dibangun dengan Laravel Sanctum, menampilkan otentikasi, manajemen peran, dan dokumentasi API yang komprehensif.',
+    tag: 'Backend',
+    year: '2023',
+    tech: ['PHP', 'Laravel', 'Sanctum', 'MySQL'],
+    liveUrl: '#',
+    githubUrl: '#',
+    gradient: 'gradient-3',
+    featured: false,
+  },
+];
+
+const STORAGE_KEY = 'adli_portfolio_projects';
+
+function loadProjects() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (_) {}
+  return DEFAULT_PROJECTS.map(p => ({ ...p }));
+}
+
+function saveProjects(projects) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+}
+
+function generateId() {
+  return 'proj-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
+}
+
+// SVG icons reusable
+const ICON_LIVE = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <polyline points="15 3 21 3 21 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>`;
+
+const ICON_GITHUB = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+const ICON_EDIT = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+  <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+const ICON_DELETE = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+  <polyline points="3 6 5 6 21 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+function buildMockupHTML(gradient) {
+  if (gradient === 'gradient-1') {
+    return `<div class="mockup-bar"></div>
+      <div class="mockup-content">
+        <div class="mockup-line"></div>
+        <div class="mockup-line short"></div>
+        <div class="mockup-grid">
+          <div class="mockup-card"></div>
+          <div class="mockup-card"></div>
+          <div class="mockup-card"></div>
+        </div>
+      </div>`;
+  } else if (gradient === 'gradient-2') {
+    return `<div class="mockup-bar"></div>
+      <div class="mockup-content">
+        <div class="mockup-line"></div>
+        <div class="mockup-line short"></div>
+        <div class="mockup-chart"></div>
+      </div>`;
+  }
+  return `<div class="mockup-bar"></div>
+    <div class="mockup-content">
+      <div class="mockup-line"></div>
+      <div class="mockup-line"></div>
+      <div class="mockup-line short"></div>
+      <div class="mockup-btn"></div>
+    </div>`;
+}
+
+function buildProjectCardHTML(project, index) {
+  const isFeatured = project.featured;
+  const techHTML = (project.tech || []).map(t => `<span>${t}</span>`).join('');
+  const delay = index * 100;
+
+  // Gunakan gambar jika ada, fallback ke mockup
+  const hasImage = project.imageData && project.imageData.length > 0;
+  const imageContent = hasImage
+    ? `<img src="${project.imageData}" alt="${project.title}" class="project-real-img" loading="lazy">`
+    : `<div class="project-img-placeholder ${project.gradient || 'gradient-1'}">
+        <div class="project-mockup">${buildMockupHTML(project.gradient || 'gradient-1')}</div>
+       </div>`;
+
+  return `
+    <article class="project-card${isFeatured ? ' featured' : ''}" data-animate="fade-up" data-delay="${delay}" data-project-id="${project.id}">
+      <!-- CRUD action buttons -->
+      <div class="project-crud-actions">
+        <button class="crud-action-btn btn-edit" title="Edit proyek" data-id="${project.id}" aria-label="Edit ${project.title}">
+          ${ICON_EDIT}
+        </button>
+        <button class="crud-action-btn btn-delete" title="Hapus proyek" data-id="${project.id}" aria-label="Hapus ${project.title}">
+          ${ICON_DELETE}
+        </button>
+      </div>
+      <div class="project-card-inner">
+        <div class="project-image">
+          ${imageContent}
+          <div class="project-overlay">
+            <div class="project-links">
+              ${project.liveUrl && project.liveUrl !== '#' ? `<a href="${project.liveUrl}" class="project-link" title="View Live" target="_blank" rel="noopener">${ICON_LIVE}</a>` : ''}
+              ${project.githubUrl && project.githubUrl !== '#' ? `<a href="${project.githubUrl}" class="project-link" title="View Code" target="_blank" rel="noopener">${ICON_GITHUB}</a>` : ''}
+            </div>
+          </div>
+        </div>
+        <div class="project-info">
+          <div class="project-meta">
+            <span class="project-tag">${project.tag || 'Proyek'}</span>
+            <span class="project-year">${project.year || ''}</span>
+          </div>
+          <h3 class="project-title">${project.title}</h3>
+          <p class="project-desc">${project.desc}</p>
+          <div class="project-tech">${techHTML}</div>
+        </div>
+      </div>
+    </article>`;
+}
+
+function renderProjects() {
+  const grid = document.getElementById('projectsGrid');
+  if (!grid) return;
+
+  const projects = loadProjects();
+
+  if (projects.length === 0) {
+    grid.innerHTML = `
+      <div class="projects-empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M9 9h6M9 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <p>Belum ada proyek. Klik <strong>Tambah Proyek</strong> untuk mulai.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = projects.map((p, i) => buildProjectCardHTML(p, i)).join('');
+
+  // Re-init tilt & scroll animations for new cards
+  initCardTilt();
+  initScrollAnimations();
+
+  // Bind edit/delete buttons
+  grid.querySelectorAll('.btn-edit').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openEditModal(btn.dataset.id);
+    });
+  });
+
+  grid.querySelectorAll('.btn-delete').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openDeleteModal(btn.dataset.id);
+    });
+  });
+}
+
+// ===== IMAGE UPLOAD HELPERS =====
+
+/**
+ * Upload file ke Vercel Blob via /api/upload
+ * Kembalikan URL publik atau null jika gagal
+ */
+async function uploadImageToServer(file, errorEl) {
+  if (errorEl) errorEl.hidden = true;
+
+  const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+  if (!file.type.startsWith('image/')) return null;
+  if (file.size > MAX_SIZE) {
+    if (errorEl) {
+      errorEl.textContent = 'File terlalu besar (maks 5MB).';
+      errorEl.hidden = false;
+    }
+    return null;
+  }
+
+  // Buat nama file unik
+  const ext = file.name.split('.').pop().toLowerCase() || 'jpg';
+  const base = file.name.replace(/\.[^.]+$/, '').replace(/[^a-z0-9]/gi, '-').toLowerCase().slice(0, 40);
+  const filename = `${base}-${Date.now()}.${ext}`;
+
+  try {
+    const res = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
+      method: 'POST',
+      headers: { 'content-type': file.type },
+      body: file, // kirim file langsung sebagai body stream
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Upload gagal.');
+    return data.url; // URL publik dari Vercel Blob
+  } catch (err) {
+    if (errorEl) {
+      errorEl.textContent = err.message || 'Gagal mengunggah gambar.';
+      errorEl.hidden = false;
+    }
+    return null;
+  }
+}
+
+/**
+ * Hapus gambar lama dari server jika bukan base64 (migrasi data lama)
+ */
+async function deleteImageFromServer(url) {
+  if (!url || url.startsWith('data:')) return; // skip base64 lama
+  try {
+    await fetch('/api/upload', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url }),
+    });
+  } catch (_) {}
+}
+
+function setImagePreview(urlOrData) {
+  const hidden = document.getElementById('crudImageData');
+  const preview = document.getElementById('imgUploadPreview');
+  const placeholder = document.getElementById('imgUploadPlaceholder');
+  const removeBtn = document.getElementById('imgUploadRemove');
+  const fileInput = document.getElementById('crudImageFile');
+
+  if (urlOrData) {
+    hidden.value = urlOrData;
+    preview.src = urlOrData;
+    preview.hidden = false;
+    placeholder.hidden = true;
+    removeBtn.hidden = false;
+  } else {
+    hidden.value = '';
+    preview.src = '';
+    preview.hidden = true;
+    placeholder.hidden = false;
+    removeBtn.hidden = true;
+    if (fileInput) fileInput.value = '';
+  }
+}
+
+function initImageUpload() {
+  const area = document.getElementById('imgUploadArea');
+  const fileInput = document.getElementById('crudImageFile');
+  const removeBtn = document.getElementById('imgUploadRemove');
+  const errorMsg = document.getElementById('imgUploadError');
+
+  if (!area || !fileInput) return;
+
+  area.addEventListener('click', (e) => {
+    if (e.target === removeBtn || removeBtn.contains(e.target)) return;
+    fileInput.click();
+  });
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files[0]) handleProjectImageFile(fileInput.files[0]);
+  });
+
+  area.addEventListener('dragover', (e) => { e.preventDefault(); area.classList.add('drag-over'); });
+  area.addEventListener('dragleave', () => area.classList.remove('drag-over'));
+  area.addEventListener('drop', (e) => {
+    e.preventDefault();
+    area.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) handleProjectImageFile(e.dataTransfer.files[0]);
+  });
+
+  removeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setImagePreview('');
+    if (errorMsg) errorMsg.hidden = true;
+  });
+
+  async function handleProjectImageFile(file) {
+    // Tampilkan preview lokal dulu (cepat)
+    const localUrl = URL.createObjectURL(file);
+    setImagePreview(localUrl);
+    area.classList.add('uploading');
+
+    const serverUrl = await uploadImageToServer(file, errorMsg);
+    area.classList.remove('uploading');
+
+    if (serverUrl) {
+      URL.revokeObjectURL(localUrl);
+      setImagePreview(serverUrl);
+    } else {
+      // Upload gagal — reset preview
+      setImagePreview('');
+    }
+  }
+}
+
+// ===== CRUD MODAL =====
+let pendingDeleteId = null;
+
+function openAddModal() {
+  const form = document.getElementById('crudForm');
+  const title = document.getElementById('modalTitle');
+  const submitBtn = document.getElementById('crudSubmitBtn');
+
+  title.textContent = 'Tambah Proyek';
+  submitBtn.querySelector('.btn-text').textContent = 'Simpan Proyek';
+  form.reset();
+  document.getElementById('crudProjectId').value = '';
+  setImagePreview('');
+
+  showModal('crudModalOverlay');
+}
+
+function openEditModal(id) {
+  const projects = loadProjects();
+  const project = projects.find(p => p.id === id);
+  if (!project) return;
+
+  document.getElementById('modalTitle').textContent = 'Edit Proyek';
+  document.getElementById('crudSubmitBtn').querySelector('.btn-text').textContent = 'Perbarui Proyek';
+  document.getElementById('crudProjectId').value = project.id;
+  document.getElementById('crudTitle').value = project.title || '';
+  document.getElementById('crudYear').value = project.year || '';
+  document.getElementById('crudDesc').value = project.desc || '';
+  document.getElementById('crudTag').value = project.tag || 'Fullstack';
+  document.getElementById('crudGradient').value = project.gradient || 'gradient-1';
+  document.getElementById('crudLiveUrl').value = project.liveUrl || '';
+  document.getElementById('crudGithubUrl').value = project.githubUrl || '';
+  document.getElementById('crudTech').value = (project.tech || []).join(', ');
+
+  // Load existing image
+  setImagePreview(project.imageData || '');
+
+  showModal('crudModalOverlay');
+}
+
+function openDeleteModal(id) {
+  const projects = loadProjects();
+  const project = projects.find(p => p.id === id);
+  if (!project) return;
+
+  pendingDeleteId = id;
+  document.getElementById('deleteProjectName').textContent = project.title;
+  showModal('deleteModalOverlay');
+}
+
+function showModal(id) {
+  const overlay = document.getElementById(id);
+  if (!overlay) return;
+  overlay.hidden = false;
+  document.body.style.overflow = 'hidden';
+  // Focus first focusable element
+  setTimeout(() => {
+    const first = overlay.querySelector('input, select, textarea, button:not(.crud-modal-close)');
+    if (first) first.focus();
+  }, 100);
+}
+
+function closeModal(id) {
+  const overlay = document.getElementById(id);
+  if (!overlay) return;
+  overlay.hidden = true;
+  document.body.style.overflow = '';
+}
+
+// ===================================
+//  CERTIFICATES CRUD
+// ===================================
+
+const CERT_STORAGE_KEY = 'adli_portfolio_certificates';
+
+const DEFAULT_CERTIFICATES = [
+  {
+    id: 'cert-1',
+    title: 'Belajar Membuat Aplikasi Web dengan React',
+    issuer: 'Dicoding',
+    category: 'Web Development',
+    year: '2024',
+    credentialUrl: 'https://www.dicoding.com/certificates/',
+    imageData: '',
+  },
+  {
+    id: 'cert-2',
+    title: 'Belajar Back-End Pemula dengan JavaScript',
+    issuer: 'Dicoding',
+    category: 'Web Development',
+    year: '2024',
+    credentialUrl: 'https://www.dicoding.com/certificates/',
+    imageData: '',
+  },
+  {
+    id: 'cert-3',
+    title: 'Laravel: Build RESTful API',
+    issuer: 'Udemy',
+    category: 'Web Development',
+    year: '2023',
+    credentialUrl: '',
+    imageData: '',
+  },
+];
+
+function loadCertificates() {
+  try {
+    const raw = localStorage.getItem(CERT_STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (_) {}
+  return DEFAULT_CERTIFICATES.map(c => ({ ...c }));
+}
+
+function saveCertificates(certs) {
+  localStorage.setItem(CERT_STORAGE_KEY, JSON.stringify(certs));
+}
+
+function generateCertId() {
+  return 'cert-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
+}
+
+const CERT_CATEGORY_COLORS = {
+  'Web Development': 'gradient-1',
+  'Mobile': 'gradient-2',
+  'Cloud': 'gradient-3',
+  'Data Science': 'gradient-2',
+  'UI/UX': 'gradient-1',
+  'Cybersecurity': 'gradient-3',
+  'Lainnya': 'gradient-1',
+};
+
+function buildCertCardHTML(cert, index) {
+  const delay = index * 80;
+  const hasImage = cert.imageData && cert.imageData.length > 0;
+  const gradientClass = CERT_CATEGORY_COLORS[cert.category] || 'gradient-1';
+
+  const imageContent = hasImage
+    ? `<img src="${cert.imageData}" alt="${cert.title}" class="cert-card-img" loading="lazy">`
+    : `<div class="cert-card-placeholder ${gradientClass}">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M9 14l1.5 4L12 16l1.5 2L15 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>`;
+
+  const credentialBtn = cert.credentialUrl
+    ? `<a href="${cert.credentialUrl}" class="cert-credential-btn" target="_blank" rel="noopener" title="Lihat Kredensial">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="15 3 21 3 21 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Lihat Kredensial
+      </a>`
+    : '';
+
+  return `
+    <article class="cert-card" data-animate="fade-up" data-delay="${delay}" data-cert-id="${cert.id}">
+      <div class="project-crud-actions">
+        <button class="crud-action-btn btn-edit" title="Edit sertifikat" data-id="${cert.id}" aria-label="Edit ${cert.title}">
+          ${ICON_EDIT}
+        </button>
+        <button class="crud-action-btn btn-delete" title="Hapus sertifikat" data-id="${cert.id}" aria-label="Hapus ${cert.title}">
+          ${ICON_DELETE}
+        </button>
+      </div>
+      <div class="cert-card-image" ${hasImage ? 'data-has-image="true"' : ''}>
+        ${imageContent}
+        ${hasImage ? `<button class="cert-zoom-btn" data-src="${cert.imageData}" aria-label="Perbesar gambar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M11 8v6M8 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>` : ''}
+      </div>
+      <div class="cert-card-body">
+        <div class="cert-card-meta">
+          <span class="cert-category-badge">${cert.category || 'Lainnya'}</span>
+          <span class="cert-year">${cert.year || ''}</span>
+        </div>
+        <h3 class="cert-title">${cert.title}</h3>
+        <p class="cert-issuer">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          ${cert.issuer}
+        </p>
+        ${credentialBtn}
+      </div>
+    </article>`;
+}
+
+function renderCertificates() {
+  const grid = document.getElementById('certificatesGrid');
+  if (!grid) return;
+
+  const certs = loadCertificates();
+
+  if (certs.length === 0) {
+    grid.innerHTML = `
+      <div class="projects-empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <p>Belum ada sertifikat. Klik <strong>★</strong> di footer untuk menambahkan.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = certs.map((c, i) => buildCertCardHTML(c, i)).join('');
+  initScrollAnimations();
+
+  // Bind edit/delete
+  grid.querySelectorAll('.btn-edit').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openCertEditModal(btn.dataset.id);
+    });
+  });
+  grid.querySelectorAll('.btn-delete').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openCertDeleteModal(btn.dataset.id);
+    });
+  });
+
+  // Lightbox zoom
+  grid.querySelectorAll('.cert-zoom-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openCertLightbox(btn.dataset.src);
+    });
+  });
+}
+
+// ===== CERT IMAGE UPLOAD =====
+function setCertImagePreview(urlOrData) {
+  const hidden = document.getElementById('certImageData');
+  const preview = document.getElementById('certImgPreview');
+  const placeholder = document.getElementById('certImgPlaceholder');
+  const removeBtn = document.getElementById('certImgRemove');
+  const fileInput = document.getElementById('certImageFile');
+
+  if (urlOrData) {
+    hidden.value = urlOrData;
+    preview.src = urlOrData;
+    preview.hidden = false;
+    placeholder.hidden = true;
+    removeBtn.hidden = false;
+  } else {
+    hidden.value = '';
+    preview.src = '';
+    preview.hidden = true;
+    placeholder.hidden = false;
+    removeBtn.hidden = true;
+    if (fileInput) fileInput.value = '';
+  }
+}
+
+function initCertImageUpload() {
+  const area = document.getElementById('certImgUploadArea');
+  const fileInput = document.getElementById('certImageFile');
+  const removeBtn = document.getElementById('certImgRemove');
+  const errorMsg = document.getElementById('certImgError');
+
+  if (!area || !fileInput) return;
+
+  area.addEventListener('click', (e) => {
+    if (removeBtn && (e.target === removeBtn || removeBtn.contains(e.target))) return;
+    fileInput.click();
+  });
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files[0]) handleCertImageFile(fileInput.files[0]);
+  });
+
+  area.addEventListener('dragover', (e) => { e.preventDefault(); area.classList.add('drag-over'); });
+  area.addEventListener('dragleave', () => area.classList.remove('drag-over'));
+  area.addEventListener('drop', (e) => {
+    e.preventDefault();
+    area.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) handleCertImageFile(e.dataTransfer.files[0]);
+  });
+
+  removeBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setCertImagePreview('');
+    if (errorMsg) errorMsg.hidden = true;
+  });
+
+  async function handleCertImageFile(file) {
+    const localUrl = URL.createObjectURL(file);
+    setCertImagePreview(localUrl);
+    area.classList.add('uploading');
+
+    const serverUrl = await uploadImageToServer(file, errorMsg);
+    area.classList.remove('uploading');
+
+    if (serverUrl) {
+      URL.revokeObjectURL(localUrl);
+      setCertImagePreview(serverUrl);
+    } else {
+      setCertImagePreview('');
+    }
+  }
+}
+
+
+// ===== CERT MODALS =====
+let pendingDeleteCertId = null;
+
+function openCertAddModal() {
+  document.getElementById('certModalTitle').textContent = 'Tambah Sertifikat';
+  document.getElementById('certSubmitBtn').querySelector('.btn-text').textContent = 'Simpan Sertifikat';
+  document.getElementById('certForm').reset();
+  document.getElementById('certId').value = '';
+  setCertImagePreview('');
+  showModal('certModalOverlay');
+}
+
+function openCertEditModal(id) {
+  const certs = loadCertificates();
+  const cert = certs.find(c => c.id === id);
+  if (!cert) return;
+
+  document.getElementById('certModalTitle').textContent = 'Edit Sertifikat';
+  document.getElementById('certSubmitBtn').querySelector('.btn-text').textContent = 'Perbarui Sertifikat';
+  document.getElementById('certId').value = cert.id;
+  document.getElementById('certTitle').value = cert.title || '';
+  document.getElementById('certYear').value = cert.year || '';
+  document.getElementById('certIssuer').value = cert.issuer || '';
+  document.getElementById('certCategory').value = cert.category || 'Web Development';
+  document.getElementById('certCredentialUrl').value = cert.credentialUrl || '';
+  setCertImagePreview(cert.imageData || '');
+  showModal('certModalOverlay');
+}
+
+function openCertDeleteModal(id) {
+  const certs = loadCertificates();
+  const cert = certs.find(c => c.id === id);
+  if (!cert) return;
+  pendingDeleteCertId = id;
+  document.getElementById('deleteCertName').textContent = cert.title;
+  showModal('deleteCertModalOverlay');
+}
+
+// ===== CERT LIGHTBOX =====
+function openCertLightbox(src) {
+  const lb = document.getElementById('certLightbox');
+  const img = document.getElementById('certLightboxImg');
+  if (!lb || !img) return;
+  img.src = src;
+  lb.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCertLightbox() {
+  const lb = document.getElementById('certLightbox');
+  if (!lb) return;
+  lb.hidden = true;
+  document.body.style.overflow = '';
+}
+
+function initCertificatesCRUD() {
+  renderCertificates();
+  initCertImageUpload();
+
+  document.getElementById('btnAddCertificate')?.addEventListener('click', openCertAddModal);
+
+  // Close buttons
+  document.getElementById('certModalClose')?.addEventListener('click', () => closeModal('certModalOverlay'));
+  document.getElementById('certCancelBtn')?.addEventListener('click', () => closeModal('certModalOverlay'));
+  document.getElementById('deleteCertModalClose')?.addEventListener('click', () => closeModal('deleteCertModalOverlay'));
+  document.getElementById('deleteCertCancelBtn')?.addEventListener('click', () => closeModal('deleteCertModalOverlay'));
+
+  // Overlay click close
+  document.getElementById('certModalOverlay')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeModal('certModalOverlay');
+  });
+  document.getElementById('deleteCertModalOverlay')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeModal('deleteCertModalOverlay');
+  });
+
+  // Lightbox
+  document.getElementById('certLightboxClose')?.addEventListener('click', closeCertLightbox);
+  document.getElementById('certLightbox')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeCertLightbox();
+  });
+
+  // Escape key (extend existing listener)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal('certModalOverlay');
+      closeModal('deleteCertModalOverlay');
+      closeCertLightbox();
+    }
+  });
+
+  // Form submit
+  document.getElementById('certForm')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const id = document.getElementById('certId').value;
+    const title = document.getElementById('certTitle').value.trim();
+    const year = document.getElementById('certYear').value.trim();
+    const issuer = document.getElementById('certIssuer').value.trim();
+
+    if (!title || !year || !issuer) {
+      const modal = document.querySelector('#certModalOverlay .crud-modal');
+      if (modal && typeof anime !== 'undefined') {
+        anime({ targets: modal, translateX: [-8, 8, -8, 8, 0], duration: 400, easing: 'easeInOutQuad' });
+      }
+      return;
+    }
+
+    const certData = {
+      title,
+      year,
+      issuer,
+      category: document.getElementById('certCategory').value,
+      credentialUrl: document.getElementById('certCredentialUrl').value.trim(),
+      imageData: document.getElementById('certImageData').value || '',
+    };
+
+    let certs = loadCertificates();
+
+    if (id) {
+      const idx = certs.findIndex(c => c.id === id);
+      if (idx !== -1) certs[idx] = { ...certs[idx], ...certData };
+    } else {
+      certs.push({ id: generateCertId(), ...certData });
+    }
+
+    saveCertificates(certs);
+    renderCertificates();
+    closeModal('certModalOverlay');
+  });
+
+  // Delete confirm
+  document.getElementById('deleteCertConfirmBtn')?.addEventListener('click', () => {
+    if (!pendingDeleteCertId) return;
+    let certs = loadCertificates();
+    const deleted = certs.find(c => c.id === pendingDeleteCertId);
+    certs = certs.filter(c => c.id !== pendingDeleteCertId);
+    saveCertificates(certs);
+    renderCertificates();
+    // Hapus file gambar dari server
+    if (deleted?.imageData) deleteImageFromServer(deleted.imageData);
+    pendingDeleteCertId = null;
+    closeModal('deleteCertModalOverlay');
+  });
+}
+
+function initProjectsCRUD() {
+  // Render initial projects
+  renderProjects();
+
+  // Image upload
+  initImageUpload();
+
+  // Add project button
+  const btnAdd = document.getElementById('btnAddProject');
+  if (btnAdd) btnAdd.addEventListener('click', openAddModal);
+
+  // Close buttons
+  document.getElementById('crudModalClose')?.addEventListener('click', () => closeModal('crudModalOverlay'));
+  document.getElementById('crudCancelBtn')?.addEventListener('click', () => closeModal('crudModalOverlay'));
+  document.getElementById('deleteModalClose')?.addEventListener('click', () => closeModal('deleteModalOverlay'));
+  document.getElementById('deleteCancelBtn')?.addEventListener('click', () => closeModal('deleteModalOverlay'));
+
+  // Close on overlay click
+  document.getElementById('crudModalOverlay')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeModal('crudModalOverlay');
+  });
+  document.getElementById('deleteModalOverlay')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeModal('deleteModalOverlay');
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal('crudModalOverlay');
+      closeModal('deleteModalOverlay');
+    }
+  });
+
+  // Form submit (Create / Update)
+  document.getElementById('crudForm')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const id = document.getElementById('crudProjectId').value;
+    const title = document.getElementById('crudTitle').value.trim();
+    const year = document.getElementById('crudYear').value.trim();
+    const desc = document.getElementById('crudDesc').value.trim();
+
+    if (!title || !year || !desc) {
+      // Simple shake feedback
+      const modal = document.querySelector('.crud-modal');
+      if (modal && typeof anime !== 'undefined') {
+        anime({ targets: modal, translateX: [-8, 8, -8, 8, 0], duration: 400, easing: 'easeInOutQuad' });
+      }
+      return;
+    }
+
+    const techRaw = document.getElementById('crudTech').value;
+    const tech = techRaw.split(',').map(t => t.trim()).filter(Boolean);
+
+    const projectData = {
+      title,
+      year,
+      desc,
+      tag: document.getElementById('crudTag').value,
+      gradient: document.getElementById('crudGradient').value,
+      liveUrl: document.getElementById('crudLiveUrl').value.trim() || '#',
+      githubUrl: document.getElementById('crudGithubUrl').value.trim() || '#',
+      tech,
+      imageData: document.getElementById('crudImageData').value || '',
+    };
+
+    let projects = loadProjects();
+
+    if (id) {
+      // UPDATE
+      const idx = projects.findIndex(p => p.id === id);
+      if (idx !== -1) {
+        projects[idx] = { ...projects[idx], ...projectData };
+      }
+    } else {
+      // CREATE — first project becomes featured if list is empty
+      const newProject = {
+        id: generateId(),
+        featured: projects.length === 0,
+        ...projectData,
+      };
+      projects.push(newProject);
+    }
+
+    saveProjects(projects);
+    renderProjects();
+    closeModal('crudModalOverlay');
+  });
+
+  // Delete confirm
+  document.getElementById('deleteConfirmBtn')?.addEventListener('click', () => {
+    if (!pendingDeleteId) return;
+    let projects = loadProjects();
+    const deleted = projects.find(p => p.id === pendingDeleteId);
+    projects = projects.filter(p => p.id !== pendingDeleteId);
+    // If first project was deleted, make next one featured
+    if (projects.length > 0 && !projects.some(p => p.featured)) {
+      projects[0].featured = true;
+    }
+    saveProjects(projects);
+    renderProjects();
+    // Hapus file gambar dari server
+    if (deleted?.imageData) deleteImageFromServer(deleted.imageData);
+    pendingDeleteId = null;
+    closeModal('deleteModalOverlay');
+  });
+}
+
+// ===================================
 //  INIT
 // ===================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -834,4 +1731,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initCardTilt();
   initSkillTags();
+  initProjectsCRUD();
+  initCertificatesCRUD();
 });
