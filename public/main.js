@@ -1041,19 +1041,33 @@ async function uploadImageToServer(file, errorEl) {
     return null;
   }
 
-  // Gunakan base64 untuk menyimpan gambar langsung di localStorage
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onload = (e) => resolve(e.target.result);
-    reader.onerror = () => {
-      if (errorEl) {
-        errorEl.textContent = 'Gagal membaca file.';
-        errorEl.hidden = false;
-      }
-      resolve(null);
-    };
-    reader.readAsDataURL(file);
-  });
+  // Buat nama file unik
+  const ext = file.name.split('.').pop().toLowerCase() || 'jpg';
+  const base = file.name.replace(/\.[^.]+$/, '').replace(/[^a-z0-9]/gi, '-').toLowerCase().slice(0, 40);
+  const filename = `${base}-${Date.now()}.${ext}`;
+
+  try {
+    const res = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
+      method: 'POST',
+      headers: { 'content-type': file.type },
+      body: file,
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || 'Upload gagal.');
+    }
+
+    const data = await res.json();
+    return data.url;
+  } catch (err) {
+    console.error('Upload error:', err);
+    if (errorEl) {
+      errorEl.textContent = err.message || 'Gagal mengunggah gambar.';
+      errorEl.hidden = false;
+    }
+    return null;
+  }
 }
 
 /**
@@ -1125,7 +1139,6 @@ function initImageUpload() {
   });
 
   async function handleProjectImageFile(file) {
-    // Tampilkan preview lokal dulu (cepat)
     const localUrl = URL.createObjectURL(file);
     setImagePreview(localUrl);
     area.classList.add('uploading');
@@ -1137,7 +1150,6 @@ function initImageUpload() {
       URL.revokeObjectURL(localUrl);
       setImagePreview(serverUrl);
     } else {
-      // Upload gagal — reset preview
       setImagePreview('');
     }
   }
