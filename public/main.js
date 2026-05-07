@@ -1031,38 +1031,29 @@ function renderProjects() {
 async function uploadImageToServer(file, errorEl) {
   if (errorEl) errorEl.hidden = true;
 
-  const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+  const MAX_SIZE = 2 * 1024 * 1024; // 2MB
   if (!file.type.startsWith('image/')) return null;
   if (file.size > MAX_SIZE) {
     if (errorEl) {
-      errorEl.textContent = 'File terlalu besar (maks 5MB).';
+      errorEl.textContent = 'File terlalu besar (maks 2MB).';
       errorEl.hidden = false;
     }
     return null;
   }
 
-  // Buat nama file unik
-  const ext = file.name.split('.').pop().toLowerCase() || 'jpg';
-  const base = file.name.replace(/\.[^.]+$/, '').replace(/[^a-z0-9]/gi, '-').toLowerCase().slice(0, 40);
-  const filename = `${base}-${Date.now()}.${ext}`;
-
-  try {
-    const res = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
-      method: 'POST',
-      headers: { 'content-type': file.type },
-      body: file, // kirim file langsung sebagai body stream
-    });
-
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Upload gagal.');
-    return data.url; // URL publik dari Vercel Blob
-  } catch (err) {
-    if (errorEl) {
-      errorEl.textContent = err.message || 'Gagal mengunggah gambar.';
-      errorEl.hidden = false;
-    }
-    return null;
-  }
+  // Gunakan base64 untuk menyimpan gambar langsung di localStorage
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => resolve(e.target.result);
+    reader.onerror = () => {
+      if (errorEl) {
+        errorEl.textContent = 'Gagal membaca file.';
+        errorEl.hidden = false;
+      }
+      resolve(null);
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
 /**
@@ -1298,16 +1289,16 @@ function buildCertCardHTML(cert, index) {
         </svg>
       </div>`;
 
-  // Tombol "Lihat Sertifikat":
-  // - kalau ada foto → buka lightbox
+  // Tombol "Lihat Kredensial":
+  // - kalau ada foto → buka lightbox (pop-up gambar)
   // - kalau tidak ada foto tapi ada URL → buka URL
   const viewBtn = hasImage
-    ? `<button type="button" class="cert-credential-btn cert-view-btn" data-src="${cert.imageData}" aria-label="Lihat sertifikat">
+    ? `<button type="button" class="cert-credential-btn cert-view-btn" data-src="${cert.imageData}" aria-label="Lihat kredensial">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
           <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
         </svg>
-        Lihat Sertifikat
+        Lihat Kredensial
       </button>`
     : cert.credentialUrl
       ? `<a href="${cert.credentialUrl}" class="cert-credential-btn" target="_blank" rel="noopener">
