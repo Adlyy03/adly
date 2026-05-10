@@ -23,6 +23,25 @@
   <!-- Noise overlay -->
   <div class="noise-overlay"></div>
 
+  <!-- Loading screen -->
+  <div id="pageLoader" class="page-loader" aria-hidden="false">
+    <div class="loader-inner">
+      <div class="loader-logo">Adli</div>
+      <div class="loader-ring" aria-hidden="true">
+        <svg width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#6366f1"/>
+              <stop offset="100%" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r="40" stroke="url(#g1)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="251.2" stroke-dashoffset="188"/>
+        </svg>
+      </div>
+      <div class="loader-text">Muat portofolio...</div>
+    </div>
+  </div>
+
   <!-- Navbar -->
   <nav class="navbar" id="navbar">
     <div class="navbar-container">
@@ -447,14 +466,14 @@
     </div>
   </div>
 
-  <!-- ===== CERTIFICATE LIGHTBOX ===== -->
-  <div class="cert-lightbox" id="certLightbox" hidden>
-    <button class="cert-lightbox-close" id="certLightboxClose" aria-label="Tutup">
+  <!-- ===== IMAGE LIGHTBOX ===== -->
+  <div class="cert-lightbox" id="imageLightbox" hidden>
+    <button class="cert-lightbox-close" id="imageLightboxClose" aria-label="Tutup">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
       </svg>
     </button>
-    <img id="certLightboxImg" src="" alt="" class="cert-lightbox-img">
+    <img id="imageLightboxImg" src="" alt="" class="cert-lightbox-img">
   </div>
 
   <!-- ===== SKILLS SECTION ===== -->
@@ -486,8 +505,8 @@
               <span class="skill-tag">React</span>
               <span class="skill-tag">React Native</span>
               <span class="skill-tag">Three.js</span>
-              <span class="skill-tag">Anime.js</span>
               <span class="skill-tag">GSAP</span>
+              <span class="skill-tag">ScrollTrigger</span>
             </div>
           </div>
 
@@ -574,7 +593,7 @@
             </div>
             <div class="skill-bar-item">
               <div class="skill-bar-header">
-                <span class="skill-name">Three.js / Anime.js</span>
+                <span class="skill-name">Three.js / GSAP</span>
                 <span class="skill-pct">88%</span>
               </div>
               <div class="skill-bar-track">
@@ -604,6 +623,14 @@
         <p class="section-eyebrow">Pencapaian</p>
         <h2 class="section-title">Sertifikat & <span class="highlight">Penghargaan</span></h2>
         <p class="section-subtitle">Sertifikasi dan penghargaan yang telah saya raih</p>
+        <div class="section-actions">
+          <button type="button" class="btn btn-primary" data-open-cert-modal id="btnAddCertificateHeader" title="Tambah Sertifikat" aria-label="Tambah Sertifikat">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Tambah Sertifikat
+          </button>
+        </div>
       </div>
       <!-- Certificates grid — diisi oleh JS -->
       <div class="certificates-grid" id="certificatesGrid"></div>
@@ -801,7 +828,7 @@
               <path d="M9 9h6M9 13h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </button>
-          <button class="footer-admin-btn" id="btnAddCertificate" title="Kelola Sertifikat" aria-label="Kelola Sertifikat">
+          <button class="footer-admin-btn" id="btnAddCertificate" data-open-cert-modal title="Kelola Sertifikat" aria-label="Kelola Sertifikat">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
               <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -819,8 +846,24 @@
     </div>
   </footer>
 
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-content">
+      <div class="loading-logo">
+        <span class="brand-bracket">&lt;</span>
+        <span class="loading-text">Adli</span>
+        <span class="brand-bracket">/&gt;</span>
+      </div>
+      <div class="loading-bar">
+        <div class="loading-progress" id="loadingProgress"></div>
+      </div>
+      <p class="loading-percent" id="loadingPercent">0%</p>
+    </div>
+  </div>
+
   <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="main.js"></script>
 </body>

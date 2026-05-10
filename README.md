@@ -1,6 +1,6 @@
 # Portfolio — Muhammad Adli Fajriyansyah
 
-Portfolio website dengan Vercel Blob untuk upload gambar proyek & sertifikat.
+Portfolio website dengan upload gambar proyek & sertifikat ke folder lokal `public/img`.
 
 ---
 
@@ -9,7 +9,7 @@ Portfolio website dengan Vercel Blob untuk upload gambar proyek & sertifikat.
 ### 1. Push ke GitHub
 ```bash
 git add .
-git commit -m "feat: add vercel blob image upload"
+git commit -m "feat: add local image upload"
 git push
 ```
 
@@ -18,21 +18,8 @@ git push
 - Import repo GitHub kamu
 - Vercel otomatis detect konfigurasi dari `vercel.json`
 
-### 3. Tambah Environment Variable
-Di dashboard Vercel → **Settings → Environment Variables**, tambahkan:
-
-| Key | Value |
-|-----|-------|
-| `BLOB_READ_WRITE_TOKEN` | Token dari Vercel Blob Store |
-
-**Cara dapat token:**
-1. Di dashboard Vercel → **Storage → Create Store → Blob**
-2. Beri nama store (misal: `porto-images`)
-3. Copy token `BLOB_READ_WRITE_TOKEN` yang muncul
-4. Paste ke Environment Variables
-
-### 4. Redeploy
-Setelah env var ditambahkan, klik **Redeploy** di dashboard Vercel.
+### 3. Deploy
+Langsung deploy seperti biasa. Upload gambar sekarang disimpan ke `public/img` lewat endpoint `/api/upload`.
 
 ---
 
@@ -51,12 +38,12 @@ vercel link
 
 ### Jalankan dev server
 ```bash
-vercel dev
+npm run dev
 ```
 
 Buka `http://localhost:3000`
 
-> `vercel dev` otomatis pull env vars dari Vercel dashboard, termasuk `BLOB_READ_WRITE_TOKEN`.
+> Dev lokal sekarang pakai server Node bawaan repo, jadi tidak perlu login Vercel untuk upload.
 
 ---
 
@@ -64,12 +51,12 @@ Buka `http://localhost:3000`
 
 ```
 ├── api/
-│   └── upload.js      # Serverless function: upload & hapus gambar
+│   └── upload.js      # Serverless function: upload & hapus gambar lokal
 ├── public/
 │   ├── index.html
 │   ├── main.js
 │   ├── style.css
-│   └── img/           # Gambar statis (foto profil, dll)
+│   └── img/           # Gambar hasil upload proyek & sertifikat
 ├── vercel.json        # Konfigurasi routing Vercel
 └── package.json
 ```
@@ -78,5 +65,5 @@ Buka `http://localhost:3000`
 
 | Method | Endpoint | Deskripsi |
 |--------|----------|-----------|
-| `POST` | `/api/upload?filename=foto.jpg` | Upload gambar ke Vercel Blob |
-| `DELETE` | `/api/upload` | Hapus gambar (body: `{ url: "..." }`) |
+| `POST` | `/api/upload?filename=foto.jpg` | Upload gambar ke `public/img` |
+| `DELETE` | `/api/upload` | Hapus gambar lokal (body: `{ url: "..." }`) |

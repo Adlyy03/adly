@@ -1,4 +1,25 @@
-const { put, del } = require('@vercel/blob');
+const fs = require('fs/promises');
+const path = require('path');
+
+const UPLOAD_DIR = path.join(process.cwd(), 'public', 'img');
+const PUBLIC_IMAGE_PREFIX = '/img/';
+
+function sanitizeFilename(filename) {
+  const baseName = path.basename(filename || 'upload.jpg');
+  return baseName.replace(/[^a-zA-Z0-9._-]/g, '-');
+}
+
+function getLocalFilenameFromUrl(url) {
+  if (!url || typeof url !== 'string') return null;
+  if (!url.startsWith(PUBLIC_IMAGE_PREFIX)) return null;
+
+  const rawName = url.slice(PUBLIC_IMAGE_PREFIX.length).split('?')[0];
+  try {
+    return sanitizeFilename(decodeURIComponent(rawName));
+  } catch (_) {
+    return sanitizeFilename(rawName);
+  }
+}
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,12 +43,13 @@ module.exports = async function handler(req, res) {
       for await (const chunk of req) chunks.push(chunk);
       const buffer = Buffer.concat(chunks);
 
-      const blob = await put(filename, buffer, {
-        access: 'public',
-        contentType: req.headers['content-type'],
-      });
+      await fs.mkdir(UPLOAD_DIR, { recursive: true });
 
-      return res.status(200).json({ url: blob.url });
+      const safeFilename = sanitizeFilename(filename);
+      const filePath = path.join(UPLOAD_DIR, safeFilename);
+      await fs.writeFile(filePath, buffer);
+
+      return res.status(200).json({ url: `${PUBLIC_IMAGE_PREFIX}${encodeURIComponent(safeFilename)}` });
     } catch (err) {
       console.error('[upload error]', err);
       return res.status(500).json({ error: err.message || 'Gagal mengupload.' });
@@ -43,7 +65,15 @@ module.exports = async function handler(req, res) {
 
       if (!url) return res.status(400).json({ error: 'url wajib diisi.' });
 
-      await del(url);
+      const localFilename = getLocalFilenameFromUrl(url);
+      if (localFilename) {
+        try {
+          await fs.unlink(path.join(UPLOAD_DIR, localFilename));
+        } catch (unlinkErr) {
+          if (unlinkErr.code !== 'ENOENT') throw unlinkErr;
+        }
+      }
+
       return res.status(200).json({ ok: true });
     } catch (err) {
       console.error('[delete error]', err);

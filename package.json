@@ -3,10 +3,8 @@
   "version": "1.0.0",
   "description": "Portfolio website — Vercel deployment",
   "scripts": {
-    "dev": "vercel dev",
+    "dev": "node server.js",
     "deploy": "vercel --prod"
   },
-  "dependencies": {
-    "@vercel/blob": "^2.3.3"
-  }
+  "dependencies": {}
 }

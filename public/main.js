@@ -194,39 +194,18 @@ function initTyped() {
 
 // ===== HERO ANIMATION =====
 function animateHero() {
-  const badge = document.getElementById('heroBadge');
-  const name = document.getElementById('heroName');
-  const role = document.getElementById('heroRole');
-  const desc = document.getElementById('heroDesc');
-  const actions = document.getElementById('heroActions');
-  const scroll = document.getElementById('heroScroll');
-  const pills = document.querySelectorAll('.tech-pill');
-
-  const tl = [badge, name, role, desc, actions, scroll];
-  const delays = [0, 200, 450, 650, 850, 1100];
-
-  tl.forEach((el, i) => {
-    if (!el) return;
-    anime({
-      targets: el,
-      opacity: [0, 1],
-      translateY: [i === 0 ? 0 : 28, 0],
-      duration: 900,
-      easing: 'easeOutQuart',
-      delay: delays[i],
-    });
+  // This function is now handled by initPageReveal() with GSAP
+  // Keeping for compatibility but functionality moved to GSAP
+  if (typeof gsap !== 'undefined') return;
+  
+  // Fallback if GSAP not loaded
+  const elements = document.querySelectorAll('.hero-content > *');
+  elements.forEach((el, i) => {
+    setTimeout(() => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, i * 150);
   });
-
-  if (pills.length) {
-    anime({
-      targets: pills,
-      opacity: [0, 1],
-      scale: [0.85, 1],
-      duration: 700,
-      easing: 'easeOutBack',
-      delay: anime.stagger(120, { start: 1200 }),
-    });
-  }
 }
 
 // ===== INTERSECTION OBSERVER (scroll animations) =====
@@ -640,12 +619,13 @@ function initContactForm() {
         if (alertMsg) alertMsg.textContent = 'Mohon periksa kembali formulir Anda';
       }
       // Shake animation on error
-      anime({
-        targets: form,
-        translateX: [-8, 8, -8, 8, 0],
-        duration: 400,
-        easing: 'easeInOutQuad',
-      });
+      if (typeof gsap !== 'undefined') {
+        gsap.to(form, {
+          x: [-8, 8, -8, 8, 0],
+          duration: 0.4,
+          ease: 'power2.inOut'
+        });
+      }
       return;
     }
 
@@ -680,23 +660,25 @@ function initContactForm() {
         form.classList.add('success');
 
         // Animate button completion
-        anime({
-          targets: btn,
-          scale: [1, 0.96, 1],
-          duration: 400,
-          easing: 'easeInOutQuad',
-        });
+        if (typeof gsap !== 'undefined') {
+          gsap.to(btn, {
+            scale: [1, 0.96, 1],
+            duration: 0.4,
+            ease: 'power2.inOut'
+          });
+        }
 
         // Show success message with animation
         if (success) {
           success.style.display = 'flex';
-          anime({
-            targets: success,
-            opacity: [0, 1],
-            translateY: [12, 0],
-            duration: 500,
-            easing: 'easeOutQuad',
-          });
+          if (typeof gsap !== 'undefined') {
+            gsap.from(success, {
+              opacity: 0,
+              y: 12,
+              duration: 0.5,
+              ease: 'power2.out'
+            });
+          }
         }
 
         // Reset form after delay
@@ -714,13 +696,17 @@ function initContactForm() {
 
           // Hide success message
           if (success) {
-            anime({
-              targets: success,
-              opacity: 0,
-              duration: 300,
-              easing: 'easeInQuad',
-              complete: () => { success.style.display = 'none'; success.style.opacity = 1; }
-            });
+            if (typeof gsap !== 'undefined') {
+              gsap.to(success, {
+                opacity: 0,
+                duration: 0.3,
+                ease: 'power2.in',
+                onComplete: () => { 
+                  success.style.display = 'none'; 
+                  success.style.opacity = 1; 
+                }
+              });
+            }
           }
         }, 3000);
       } else {
@@ -729,12 +715,13 @@ function initContactForm() {
         form.classList.add('error');
 
         // Shake animation on error
-        anime({
-          targets: form,
-          translateX: [-8, 8, -8, 8, 0],
-          duration: 400,
-          easing: 'easeInOutQuad',
-        });
+        if (typeof gsap !== 'undefined') {
+          gsap.to(form, {
+            x: [-8, 8, -8, 8, 0],
+            duration: 0.4,
+            ease: 'power2.inOut'
+          });
+        }
 
         // Show error alert
         if (alert) {
@@ -743,13 +730,14 @@ function initContactForm() {
           if (alertMsg) alertMsg.textContent = 'Gagal mengirim pesan. Coba lagi nanti.';
 
           // Animate error alert
-          anime({
-            targets: alert,
-            opacity: [0, 1],
-            translateY: [12, 0],
-            duration: 400,
-            easing: 'easeOutQuad',
-          });
+          if (typeof gsap !== 'undefined') {
+            gsap.from(alert, {
+              opacity: 0,
+              y: 12,
+              duration: 0.4,
+              ease: 'power2.out'
+            });
+          }
         }
 
         // Reset button state
@@ -802,20 +790,22 @@ function initSkillTags() {
   const tags = document.querySelectorAll('.skill-tag');
   tags.forEach(tag => {
     tag.addEventListener('mouseenter', () => {
-      anime({
-        targets: tag,
-        scale: [1, 1.06],
-        duration: 200,
-        easing: 'easeOutBack',
-      });
+      if (typeof gsap !== 'undefined') {
+        gsap.to(tag, {
+          scale: 1.06,
+          duration: 0.2,
+          ease: 'back.out(1.7)'
+        });
+      }
     });
     tag.addEventListener('mouseleave', () => {
-      anime({
-        targets: tag,
-        scale: 1,
-        duration: 200,
-        easing: 'easeOutQuad',
-      });
+      if (typeof gsap !== 'undefined') {
+        gsap.to(tag, {
+          scale: 1,
+          duration: 0.2,
+          ease: 'power2.out'
+        });
+      }
     });
   });
 }
@@ -943,7 +933,7 @@ function buildProjectCardHTML(project, index) {
   // Gunakan gambar jika ada, fallback ke mockup
   const hasImage = project.imageData && project.imageData.length > 0;
   const imageContent = hasImage
-    ? `<img src="${project.imageData}" alt="${project.title}" class="project-real-img" loading="lazy">`
+    ? `<img src="${project.imageData}" alt="${project.title}" class="project-real-img" loading="lazy" data-image-popup="true">`
     : `<div class="project-img-placeholder ${project.gradient || 'gradient-1'}">
         <div class="project-mockup">${buildMockupHTML(project.gradient || 'gradient-1')}</div>
        </div>`;
@@ -1025,7 +1015,7 @@ function renderProjects() {
 // ===== IMAGE UPLOAD HELPERS =====
 
 /**
- * Upload file ke Vercel Blob via /api/upload
+ * Upload file ke server lokal via /api/upload
  * Kembalikan URL publik atau null jika gagal
  */
 async function uploadImageToServer(file, errorEl) {
@@ -1071,7 +1061,7 @@ async function uploadImageToServer(file, errorEl) {
 }
 
 /**
- * Hapus gambar lama dari server jika bukan base64 (migrasi data lama)
+ * Hapus gambar lama dari server lokal jika bukan base64 (migrasi data lama)
  */
 async function deleteImageFromServer(url) {
   if (!url || url.startsWith('data:')) return; // skip base64 lama
@@ -1215,13 +1205,34 @@ function showModal(id) {
     const first = overlay.querySelector('input, select, textarea, button:not(.crud-modal-close)');
     if (first) first.focus();
   }, 100);
+
+  // Animate with GSAP if available
+  const modalEl = overlay.querySelector('.crud-modal, .cert-modal');
+  if (typeof gsap !== 'undefined') {
+    gsap.killTweensOf([overlay, modalEl]);
+    gsap.fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.18, ease: 'power1.out' });
+    if (modalEl) gsap.fromTo(modalEl, { y: 24, scale: 0.97, autoAlpha: 0 }, { y: 0, scale: 1, autoAlpha: 1, duration: 0.32, ease: 'power3.out' });
+  }
 }
 
 function closeModal(id) {
   const overlay = document.getElementById(id);
   if (!overlay) return;
-  overlay.hidden = true;
-  document.body.style.overflow = '';
+  // Animate close with GSAP if available
+  const modalEl = overlay.querySelector('.crud-modal, .cert-modal');
+  if (typeof gsap !== 'undefined') {
+    gsap.killTweensOf([overlay, modalEl]);
+    const tl = gsap.timeline({ defaults: { ease: 'power1.inOut' } });
+    if (modalEl) tl.to(modalEl, { y: 12, scale: 0.98, autoAlpha: 0, duration: 0.22 }, 0);
+    tl.to(overlay, { autoAlpha: 0, duration: 0.18 }, 0.04);
+    tl.call(() => {
+      overlay.hidden = true;
+      document.body.style.overflow = '';
+    });
+  } else {
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+  }
 }
 
 // ===================================
@@ -1292,36 +1303,25 @@ function buildCertCardHTML(cert, index) {
   const gradientClass = CERT_CATEGORY_COLORS[cert.category] || 'gradient-1';
 
   const imageContent = hasImage
-    ? `<img src="${cert.imageData}" alt="${cert.title}" class="cert-card-img" loading="lazy">`
+    ? `<img src="${cert.imageData}" alt="${cert.title}" class="cert-card-img" loading="lazy" data-image-popup="true">`
     : `<div class="cert-card-placeholder ${gradientClass}">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/>
           <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           <path d="M9 14l1.5 4L12 16l1.5 2L15 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>`;
 
-  // Tombol "Lihat Kredensial":
-  // - kalau ada foto → buka lightbox (pop-up gambar)
-  // - kalau tidak ada foto tapi ada URL → buka URL
+  // Tombol "Lihat Kredensial" - SELALU buka pop-up jika ada gambar
   const viewBtn = hasImage
     ? `<button type="button" class="cert-credential-btn cert-view-btn" data-src="${cert.imageData}" aria-label="Lihat kredensial">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
           <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
         </svg>
         Lihat Kredensial
       </button>`
-    : cert.credentialUrl
-      ? `<a href="${cert.credentialUrl}" class="cert-credential-btn" target="_blank" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <polyline points="15 3 21 3 21 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          Lihat Kredensial
-        </a>`
-      : '';
+    : '';
 
   return `
     <article class="cert-card" data-animate="fade-up" data-delay="${delay}" data-cert-id="${cert.id}">
@@ -1343,7 +1343,7 @@ function buildCertCardHTML(cert, index) {
         </div>
         <h3 class="cert-title">${cert.title}</h3>
         <p class="cert-issuer">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
             <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -1509,28 +1509,244 @@ function openCertDeleteModal(id) {
   showModal('deleteCertModalOverlay');
 }
 
-// ===== CERT LIGHTBOX =====
-function openCertLightbox(src) {
-  const lb = document.getElementById('certLightbox');
-  const img = document.getElementById('certLightboxImg');
+// ===== IMAGE LIGHTBOX =====
+function openImageLightbox(src, alt = '') {
+  const lb = document.getElementById('imageLightbox');
+  const img = document.getElementById('imageLightboxImg');
   if (!lb || !img) return;
   img.src = src;
+  img.alt = alt;
+  // Reset transform/position
+  img.style.transform = 'translate3d(0px, 0px, 0px) scale(1)';
+  img.dataset.scale = '1';
+  img.dataset.translateX = '0';
+  img.dataset.translateY = '0';
+
   lb.hidden = false;
   document.body.style.overflow = 'hidden';
+
+  // Attach zoom/pan handlers
+  enableImageLightboxZoom(img);
 }
 
-function closeCertLightbox() {
-  const lb = document.getElementById('certLightbox');
+function closeImageLightbox() {
+  const lb = document.getElementById('imageLightbox');
   if (!lb) return;
   lb.hidden = true;
   document.body.style.overflow = '';
+
+  // Remove zoom handlers and reset image transform
+  const img = document.getElementById('imageLightboxImg');
+  if (img) {
+    disableImageLightboxZoom(img);
+    img.style.transform = '';
+    delete img.dataset.scale;
+    delete img.dataset.translateX;
+    delete img.dataset.translateY;
+  }
+}
+
+// --- Image zoom / pan implementation ---
+function enableImageLightboxZoom(img) {
+  if (!img) return;
+  // prevent duplicate listeners
+  if (img._zoomEnabled) return;
+  img._zoomEnabled = true;
+
+  let scale = 1;
+  const minScale = 1;
+  const maxScale = 4;
+  let translateX = 0;
+  let translateY = 0;
+
+  let isPanning = false;
+  let panStart = { x: 0, y: 0 };
+  let lastPointerId = null;
+
+  // Touch pinch state
+  let pinch = { active: false, startDist: 0, startScale: 1, midX: 0, midY: 0 };
+
+  function updateTransform() {
+    img.style.transform = `translate3d(${translateX}px, ${translateY}px, 0px) scale(${scale})`;
+    img.dataset.scale = String(scale);
+    img.dataset.translateX = String(translateX);
+    img.dataset.translateY = String(translateY);
+  }
+
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  function getEventPos(e) {
+    if (e.touches && e.touches.length > 0) {
+      return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+    return { x: e.clientX, y: e.clientY };
+  }
+
+  function onWheel(e) {
+    if (!img) return;
+    e.preventDefault();
+    const rect = img.getBoundingClientRect();
+    const cx = e.clientX - rect.left;
+    const cy = e.clientY - rect.top;
+
+    const delta = e.deltaY < 0 ? 1.12 : 0.88;
+    const newScale = clamp(scale * delta, minScale, maxScale);
+    // offset within image coordinates
+    const ox = (cx - rect.width / 2 - translateX) / scale;
+    const oy = (cy - rect.height / 2 - translateY) / scale;
+
+    // adjust translate so zoom centers at pointer
+    translateX = translateX - ox * (newScale - scale);
+    translateY = translateY - oy * (newScale - scale);
+    scale = newScale;
+
+    // If scale back to 1, reset translate
+    if (scale <= 1.001) {
+      scale = 1; translateX = 0; translateY = 0;
+    }
+
+    updateTransform();
+  }
+
+  function onDblClick(e) {
+    e.preventDefault();
+    const rect = img.getBoundingClientRect();
+    const cx = e.clientX - rect.left;
+    const cy = e.clientY - rect.top;
+
+    if (scale <= 1.05) {
+      // zoom in centered at click
+      const newScale = 2.2;
+      const ox = (cx - rect.width / 2 - translateX) / scale;
+      const oy = (cy - rect.height / 2 - translateY) / scale;
+      translateX = translateX - ox * (newScale - scale);
+      translateY = translateY - oy * (newScale - scale);
+      scale = clamp(newScale, minScale, maxScale);
+    } else {
+      scale = 1; translateX = 0; translateY = 0;
+    }
+    updateTransform();
+  }
+
+  function onPointerDown(e) {
+    // handle only primary pointer
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    img.setPointerCapture?.(e.pointerId);
+    lastPointerId = e.pointerId;
+    isPanning = true;
+    panStart.x = e.clientX;
+    panStart.y = e.clientY;
+  }
+
+  function onPointerMove(e) {
+    if (!isPanning) return;
+    const dx = e.clientX - panStart.x;
+    const dy = e.clientY - panStart.y;
+    panStart.x = e.clientX;
+    panStart.y = e.clientY;
+    translateX += dx;
+    translateY += dy;
+    updateTransform();
+  }
+
+  function onPointerUp(e) {
+    isPanning = false;
+    lastPointerId = null;
+    img.releasePointerCapture?.(e.pointerId);
+    // If scale is 1, reset translate
+    if (scale <= 1.001) { translateX = 0; translateY = 0; updateTransform(); }
+  }
+
+  // Touch pinch handlers
+  function getDistance(t1, t2) {
+    const dx = t1.clientX - t2.clientX; const dy = t1.clientY - t2.clientY; return Math.hypot(dx, dy);
+  }
+
+  function onTouchStart(e) {
+    if (e.touches.length === 2) {
+      pinch.active = true;
+      pinch.startDist = getDistance(e.touches[0], e.touches[1]);
+      pinch.startScale = scale;
+      // midpoint
+      pinch.midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+      pinch.midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+    }
+  }
+
+  function onTouchMove(e) {
+    if (pinch.active && e.touches.length === 2) {
+      e.preventDefault();
+      const d = getDistance(e.touches[0], e.touches[1]);
+      const rect = img.getBoundingClientRect();
+      const cx = pinch.midX - rect.left;
+      const cy = pinch.midY - rect.top;
+      const newScale = clamp(pinch.startScale * (d / pinch.startDist), minScale, maxScale);
+      const ox = (cx - rect.width / 2 - translateX) / scale;
+      const oy = (cy - rect.height / 2 - translateY) / scale;
+      translateX = translateX - ox * (newScale - scale);
+      translateY = translateY - oy * (newScale - scale);
+      scale = newScale;
+      updateTransform();
+    } else if (e.touches.length === 1 && scale > 1) {
+      // single finger pan when zoomed
+      e.preventDefault();
+      const t = e.touches[0];
+      if (!isPanning) {
+        isPanning = true; panStart.x = t.clientX; panStart.y = t.clientY;
+      } else {
+        const dx = t.clientX - panStart.x; const dy = t.clientY - panStart.y;
+        panStart.x = t.clientX; panStart.y = t.clientY;
+        translateX += dx; translateY += dy; updateTransform();
+      }
+    }
+  }
+
+  function onTouchEnd(e) {
+    if (pinch.active && e.touches.length < 2) {
+      pinch.active = false;
+    }
+    if (e.touches.length === 0) {
+      isPanning = false;
+      if (scale <= 1.001) { scale = 1; translateX = 0; translateY = 0; updateTransform(); }
+    }
+  }
+
+  // Attach listeners
+  img.addEventListener('wheel', onWheel, { passive: false });
+  img.addEventListener('dblclick', onDblClick);
+  img.addEventListener('pointerdown', onPointerDown);
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerUp);
+  img.addEventListener('touchstart', onTouchStart, { passive: false });
+  img.addEventListener('touchmove', onTouchMove, { passive: false });
+  img.addEventListener('touchend', onTouchEnd);
+
+  // store cleanup refs
+  img._zoomHandlers = { onWheel, onDblClick, onPointerDown, onPointerMove, onPointerUp, onTouchStart, onTouchMove, onTouchEnd };
+}
+
+function disableImageLightboxZoom(img) {
+  if (!img || !img._zoomEnabled) return;
+  const h = img._zoomHandlers || {};
+  img.removeEventListener('wheel', h.onWheel);
+  img.removeEventListener('dblclick', h.onDblClick);
+  img.removeEventListener('pointerdown', h.onPointerDown);
+  window.removeEventListener('pointermove', h.onPointerMove);
+  window.removeEventListener('pointerup', h.onPointerUp);
+  img.removeEventListener('touchstart', h.onTouchStart);
+  img.removeEventListener('touchmove', h.onTouchMove);
+  img.removeEventListener('touchend', h.onTouchEnd);
+  img._zoomEnabled = false;
+  delete img._zoomHandlers;
 }
 
 function initCertificatesCRUD() {
   renderCertificates();
   initCertImageUpload();
 
-  document.getElementById('btnAddCertificate')?.addEventListener('click', openCertAddModal);
+  document.querySelectorAll('[data-open-cert-modal]').forEach((btn) => {
+    btn.addEventListener('click', openCertAddModal);
+  });
 
   // Close buttons
   document.getElementById('certModalClose')?.addEventListener('click', () => closeModal('certModalOverlay'));
@@ -1547,9 +1763,29 @@ function initCertificatesCRUD() {
   });
 
   // Lightbox
-  document.getElementById('certLightboxClose')?.addEventListener('click', closeCertLightbox);
-  document.getElementById('certLightbox')?.addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) closeCertLightbox();
+  document.getElementById('imageLightboxClose')?.addEventListener('click', closeImageLightbox);
+  document.getElementById('imageLightbox')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeImageLightbox();
+  });
+
+  // Global click handler for image popups. Handles direct image clicks
+  // and clicks on overlays/wrappers that sit above the image.
+  document.addEventListener('click', (e) => {
+    // 1) Direct target: element with data-image-popup
+    let target = e.target.closest('[data-image-popup="true"]');
+    if (target && target.src) {
+      openImageLightbox(target.src, target.alt || 'Preview gambar');
+      return;
+    }
+
+    // 2) Clicked on overlay or wrapper (e.g., .project-image, .cert-card-image)
+    const wrapper = e.target.closest('.project-image, .cert-card-image');
+    if (wrapper) {
+      const img = wrapper.querySelector('img[data-image-popup="true"]');
+      if (img && img.src) {
+        openImageLightbox(img.src, img.alt || 'Preview gambar');
+      }
+    }
   });
 
   // Escape key (extend existing listener)
@@ -1557,7 +1793,7 @@ function initCertificatesCRUD() {
     if (e.key === 'Escape') {
       closeModal('certModalOverlay');
       closeModal('deleteCertModalOverlay');
-      closeCertLightbox();
+      closeImageLightbox();
     }
   });
 
@@ -1572,8 +1808,16 @@ function initCertificatesCRUD() {
 
     if (!title || !year || !issuer) {
       const modal = document.querySelector('#certModalOverlay .crud-modal');
-      if (modal && typeof anime !== 'undefined') {
-        anime({ targets: modal, translateX: [-8, 8, -8, 8, 0], duration: 400, easing: 'easeInOutQuad' });
+      if (modal) {
+        if (typeof gsap !== 'undefined') {
+          gsap.fromTo(modal, 
+            { x: -8 },
+            { x: 8, duration: 0.1, repeat: 3, yoyo: true, ease: 'power2.inOut', onComplete: () => gsap.set(modal, { x: 0 }) }
+          );
+        } else {
+          modal.style.animation = 'shake 0.4s';
+          setTimeout(() => modal.style.animation = '', 400);
+        }
       }
       return;
     }
@@ -1652,17 +1896,29 @@ function initProjectsCRUD() {
   // Form submit (Create / Update)
   document.getElementById('crudForm')?.addEventListener('submit', (e) => {
     e.preventDefault();
+    console.log('Form submitted');
 
     const id = document.getElementById('crudProjectId').value;
     const title = document.getElementById('crudTitle').value.trim();
     const year = document.getElementById('crudYear').value.trim();
     const desc = document.getElementById('crudDesc').value.trim();
 
+    console.log('Form data:', { id, title, year, desc });
+
     if (!title || !year || !desc) {
+      console.log('Validation failed');
       // Simple shake feedback
       const modal = document.querySelector('.crud-modal');
-      if (modal && typeof anime !== 'undefined') {
-        anime({ targets: modal, translateX: [-8, 8, -8, 8, 0], duration: 400, easing: 'easeInOutQuad' });
+      if (modal) {
+        if (typeof gsap !== 'undefined') {
+          gsap.fromTo(modal, 
+            { x: -8 },
+            { x: 8, duration: 0.1, repeat: 3, yoyo: true, ease: 'power2.inOut', onComplete: () => gsap.set(modal, { x: 0 }) }
+          );
+        } else {
+          modal.style.animation = 'shake 0.4s';
+          setTimeout(() => modal.style.animation = '', 400);
+        }
       }
       return;
     }
@@ -1682,6 +1938,8 @@ function initProjectsCRUD() {
       imageData: document.getElementById('crudImageData').value || '',
     };
 
+    console.log('Project data:', projectData);
+
     let projects = loadProjects();
 
     if (id) {
@@ -1700,9 +1958,11 @@ function initProjectsCRUD() {
       projects.push(newProject);
     }
 
+    console.log('Saving projects:', projects);
     saveProjects(projects);
     renderProjects();
     closeModal('crudModalOverlay');
+    console.log('Form submission complete');
   });
 
   // Delete confirm
@@ -1725,12 +1985,281 @@ function initProjectsCRUD() {
 }
 
 // ===================================
+//  GSAP ANIMATIONS
+// ===================================
+
+// Register GSAP plugins
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+// Loading Screen Animation
+function initLoadingScreen() {
+  const loadingScreen = document.getElementById('loadingScreen');
+  const loadingProgress = document.getElementById('loadingProgress');
+  const loadingPercent = document.getElementById('loadingPercent');
+  
+  if (!loadingScreen || typeof gsap === 'undefined') return;
+
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.random() * 15;
+    if (progress > 100) progress = 100;
+    
+    if (loadingProgress) loadingProgress.style.width = progress + '%';
+    if (loadingPercent) loadingPercent.textContent = Math.floor(progress) + '%';
+    
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        gsap.to(loadingScreen, {
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            loadingScreen.classList.add('hidden');
+            initPageReveal();
+          }
+        });
+      }, 300);
+    }
+  }, 100);
+}
+
+// Page Reveal Animation
+function initPageReveal() {
+  if (typeof gsap === 'undefined') return;
+
+  const tl = gsap.timeline();
+  
+  tl.from('.navbar', {
+    y: -100,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power3.out'
+  })
+  .from('.hero-content > *', {
+    y: 50,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.15,
+    ease: 'power3.out'
+  }, '-=0.4')
+  .from('.tech-pill', {
+    scale: 0,
+    opacity: 0,
+    duration: 0.6,
+    stagger: 0.1,
+    ease: 'back.out(1.7)'
+  }, '-=0.6');
+}
+
+// Scroll Trigger Animations
+function initGSAPScrollAnimations() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+  // Animate sections on scroll
+  gsap.utils.toArray('section').forEach((section, i) => {
+    const elements = section.querySelectorAll('.section-header, .project-card, .cert-card, .skill-category, .contact-detail-item');
+    
+    if (elements.length > 0) {
+      gsap.from(elements, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power3.out'
+      });
+    }
+  });
+
+  // Parallax effect for hero
+  gsap.to('.hero-tech-pills', {
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1
+    },
+    y: 200,
+    opacity: 0
+  });
+
+  // Skill bars animation
+  const skillBars = document.querySelectorAll('.skill-bar-fill');
+  skillBars.forEach(bar => {
+    const targetWidth = bar.getAttribute('data-width') + '%';
+    gsap.to(bar, {
+      scrollTrigger: {
+        trigger: bar,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      },
+      width: targetWidth,
+      duration: 1.5,
+      ease: 'power2.out'
+    });
+  });
+}
+
+// Magnetic Button Effect
+function initMagneticButtons() {
+  if (typeof gsap === 'undefined') return;
+
+  const buttons = document.querySelectorAll('.btn, .nav-cta, .footer-admin-btn');
+  
+  buttons.forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+      gsap.to(this, { scale: 1.05, duration: 0.3, ease: 'power2.out' });
+    });
+    
+    btn.addEventListener('mouseleave', function() {
+      gsap.to(this, { scale: 1, x: 0, y: 0, duration: 0.3, ease: 'power2.out' });
+    });
+    
+    btn.addEventListener('mousemove', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      
+      gsap.to(this, {
+        x: x * 0.3,
+        y: y * 0.3,
+        duration: 0.3,
+        ease: 'power2.out'
+      });
+    });
+  });
+}
+
+// Smooth Hamburger Animation
+function initGSAPHamburger() {
+  if (typeof gsap === 'undefined') return;
+
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('navbarMenu');
+  
+  if (!hamburger || !menu) return;
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.contains('open');
+    
+    if (!isOpen) {
+      gsap.to(menu, {
+        height: 'auto',
+        opacity: 1,
+        duration: 0.4,
+        ease: 'power2.out'
+      });
+      
+      gsap.from(menu.querySelectorAll('.nav-link'), {
+        x: -50,
+        opacity: 0,
+        duration: 0.4,
+        stagger: 0.08,
+        ease: 'power2.out'
+      });
+    } else {
+      gsap.to(menu, {
+        height: 0,
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power2.in'
+      });
+    }
+  });
+}
+
+// Floating Animation for Elements
+function initFloatingElements() {
+  if (typeof gsap === 'undefined') return;
+
+  const floatingElements = document.querySelectorAll('.about-badge, .hero-scroll');
+  
+  floatingElements.forEach((el, i) => {
+    gsap.to(el, {
+      y: -15,
+      duration: 2 + i * 0.5,
+      repeat: -1,
+      yoyo: true,
+      ease: 'power1.inOut'
+    });
+  });
+}
+
+// Card Hover Animation with GSAP
+function initGSAPCardHover() {
+  if (typeof gsap === 'undefined') return;
+
+  const cards = document.querySelectorAll('.project-card, .cert-card');
+  
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      gsap.to(this, {
+        y: -8,
+        scale: 1.02,
+        duration: 0.4,
+        ease: 'power2.out'
+      });
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      gsap.to(this, {
+        y: 0,
+        scale: 1,
+        duration: 0.4,
+        ease: 'power2.out'
+      });
+    });
+  });
+}
+
+// Mobile Swipe Detection
+function initMobileSwipe() {
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  
+  document.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+  
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+    
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swipe left
+        console.log('Swiped left');
+      } else {
+        // Swipe right
+        console.log('Swiped right');
+      }
+    }
+  }
+}
+
+// ===================================
 //  INIT
 // ===================================
 document.addEventListener('DOMContentLoaded', () => {
+  // Loading screen first
+  initLoadingScreen();
+  
+  // Original inits
   initCursor();
   initThreeJS();
-  animateHero();
   initTyped();
   initScrollAnimations();
   initAboutAnimations();
@@ -1740,4 +2269,26 @@ document.addEventListener('DOMContentLoaded', () => {
   initSkillTags();
   initProjectsCRUD();
   initCertificatesCRUD();
+  
+  // GSAP animations
+  if (typeof gsap !== 'undefined') {
+    initGSAPScrollAnimations();
+    initMagneticButtons();
+    initGSAPHamburger();
+    initFloatingElements();
+    initGSAPCardHover();
+    initMobileSwipe();
+  }
+  // Hide loader when page ready
+  const loader = document.getElementById('pageLoader');
+  if (loader) {
+    if (typeof gsap !== 'undefined') {
+      gsap.to(loader, { autoAlpha: 0, duration: 0.6, ease: 'power2.inOut', onComplete: () => loader.remove() });
+    } else {
+      loader.style.transition = 'opacity 0.5s ease';
+      loader.style.opacity = '0';
+      setTimeout(() => loader.remove(), 600);
+    }
+  }
 });
+
